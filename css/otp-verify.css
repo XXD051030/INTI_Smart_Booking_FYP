@@ -1,0 +1,156 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Main container that centers the OTP verification form vertically and horizontally */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../picture/arcane-league.jpg');
+  background-size: cover;  /* Ensures the image covers the whole screen */
+  background-position: center;  /* Centers the background image */
+  background-attachment: fixed;  /* Keeps the background fixed when scrolling */
+  background-repeat: no-repeat;  /* Ensures the image doesn't repeat */
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 150px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 30px;
+  padding: 10px 15px;
+  border-radius: 30%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.back-button:hover {
+  background-color: #333;
+  transition: background-color 0.3s ease;
+}
+
+/* Main container for the OTP verification form */
+.verify-container {
+  width: 100%; /* Full width for small screens */
+  max-width: 400px; /* Sets a maximum width for larger screens */
+  background-color: white; /* White background color */
+  padding: 20px; /* Adds padding inside the container */
+  text-align: center; /* Centers the text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow around the form */
+  border-radius: 10px; /* Smooths the corners */
+}
+
+/* Container for both the "Verify" and "Send OTP" buttons */
+.submitAndOTP {
+  display: flex; /* Flex layout for stacking the buttons */
+  flex-direction: column; /* Aligns buttons vertically */
+  gap: 10px; /* Adds space between the buttons */
+  margin-top: 20px; /* Adds margin above the buttons */
+}
+
+/* Container for the "Verify" button */
+.verify, 
+.otp {
+  width: 100%; /* Full width for the buttons */
+}
+
+/* Styling for the "Verify" button */
+.submit-btn {
+  padding: 12px; /* Adds padding inside the button */
+  width: 100%; /* Full width for the button */
+  background-color: #007bff; /* Blue background color */
+  border: none; /* Removes default border */
+  border-radius: 5px; /* Rounds the button corners */
+  color: white; /* White text color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds subtle shadow to the button */
+  transition: background-color 0.15s, opacity 0.15s; /* Smooth transitions for hover and active states */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Hover effect for the "Verify" button */
+.submit-btn:hover {
+  background-color: #008bff; /* Slightly darker blue on hover */
+}
+
+/* Active state for the "Verify" button */
+.submit-btn:active {
+  opacity: 0.8; /* Reduces opacity when clicked */
+}
+
+/* Styling for the "Send OTP" button */
+.otp-btn {
+  padding: 10px; /* Adds padding inside the button */
+  border: none; /* Removes default border */
+  background-color: white; /* White background for the button */
+  font-size: 13px; /* Font size for the button text */
+  color: rgb(96, 96, 96); /* Dark gray text color */
+  font-weight: 600; /* Bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: text-decoration 0.15s, color 0.15s; /* Smooth transitions for hover state */
+  margin-top: 15px; /* Adds margin above the button */
+}
+
+/* Hover effect for the "Send OTP" button */
+.otp-btn:hover {
+  text-decoration: underline; /* Underlines text on hover */
+  color: rgb(85, 85, 85); /* Slightly darker gray on hover */
+}
+
+/* Disabled state for the "Send OTP" button */
+.otp-btn.disabled:hover {
+  text-decoration: none; /* No underline for disabled button */
+}
+
+/* Input field container */
+.input-container {
+  width: 100%; /* Full width for input field container */
+  margin: 0 auto 20px auto; /* Centers the container and adds space below */
+}
+
+/* Styling for the title text */
+.title {
+  font-size: 16px; /* Font size for the title */
+  margin-bottom: 25px; /* Adds margin below the title */
+}
+
+/* Styling for the company logo */
+.logo {
+  margin: 30px 0; /* Adds margin above and below the logo */
+}
+
+/* Responsive adjustments for screens smaller than 768px */
+@media (max-width: 768px) {
+  .verify-container {
+    padding: 15px; /* Reduces padding inside the container */
+  }
+
+  .submitAndOTP {
+    flex-direction: column; /* Stack buttons vertically on smaller screens */
+  }
+
+  .input-container {
+    width: 100%; /* Full width for input fields */
+  }
+}
+
+/* Responsive adjustments for screens smaller than 480px */
+@media (max-width: 480px) {
+  .title {
+    font-size: 16px; /* Font size adjustment for smaller screens */
+  }
+
+  .otp-btn {
+    font-size: 12px; /* Smaller font size for the "Send OTP" button */
+  }
+}
