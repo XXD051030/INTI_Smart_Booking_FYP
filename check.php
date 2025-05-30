@@ -3,8 +3,8 @@ session_start();
 require_once 'db.php';
 
 // Google OAuth configuration - using environment variables for security
-$client_id = $_ENV['GOOGLE_CLIENT_ID'] ?? '';
-$client_secret = $_ENV['GOOGLE_CLIENT_SECRET'] ?? '';
+$client_id = $_ENV['823488326203-mf0v62tjt1eabdp1eb20p1knngbeefsv.apps.googleusercontent.com'] ?? '';
+$client_secret = $_ENV['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'] ?? '';
 $redirect_uri = 'https://gesturo.lol/check.php';
 
 if (isset($_GET['code'])) {
