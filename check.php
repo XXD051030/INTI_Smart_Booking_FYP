@@ -2,9 +2,9 @@
 session_start();
 require_once 'db.php';
 
-// Google OAuth configuration
-$client_id = '';
-$client_secret = ''; // You'll need to add your client secret here
+// Google OAuth configuration - using environment variables for security
+$client_id = $_ENV['GOOGLE_CLIENT_ID'] ?? '';
+$client_secret = $_ENV['GOOGLE_CLIENT_SECRET'] ?? '';
 $redirect_uri = 'https://gesturo.lol/check.php';
 
 if (isset($_GET['code'])) {
