@@ -3,8 +3,8 @@ session_start();
 require_once 'db.php';
 
 // Google OAuth configuration
-$client_id = '823488326203-mf0v62tjt1eabdp1eb20p1knngbeefsv.apps.googleusercontent.com';
-$client_secret = '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'; // You'll need to add your client secret here
+$client_id = '';
+$client_secret = ''; // You'll need to add your client secret here
 $redirect_uri = 'https://gesturo.lol/check.php';
 
 if (isset($_GET['code'])) {
