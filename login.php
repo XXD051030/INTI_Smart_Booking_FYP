@@ -3,7 +3,7 @@ session_start();
 
 // Check if user is already logged in, redirect to dashboard
 if (isset($_SESSION['user_id'])) {
-    header('Location: general.php');
+    header('Location: general');
     exit;
 }
 ?>
@@ -66,7 +66,7 @@ if (isset($_SESSION['user_id'])) {
                 </button>
                 
                 <div class="signup-link">
-                    <p>Don't have an account? <a href="register.php">Sign up here</a></p>
+                    <p>Don't have an account? <a href="register">Sign up here</a></p>
                 </div>
             </form>
         </div>

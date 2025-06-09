@@ -4,7 +4,7 @@ require_once 'db.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: login');
     exit;
 }
 
@@ -72,7 +72,7 @@ try {
             <div class="col-md-3 col-lg-2 sidebar">
                 <div class="nav flex-column">
                     <div class="nav-item active">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="general.php">
                             <i class="fas fa-home"></i> General
                         </a>
                     </div>

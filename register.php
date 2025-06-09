@@ -349,7 +349,7 @@
                 <button type="submit" id="submit_btn" disabled>Create Account</button>
 
                 <div class="login-link">
-                    Already have an account? <a href="login.php">Sign in</a>
+                    Already have an account? <a href="login">Sign in</a>
                 </div>
         </div>
     </div>

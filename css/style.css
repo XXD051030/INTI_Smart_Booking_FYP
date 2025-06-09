@@ -42,7 +42,7 @@ body {
     color: #666;
 }
 .active {
-    background-color: #4285F4;
+    background-color: #ff4444;
     box-shadow: 0 4px 10px rgba(66, 133, 244, 0.2);
 }
 .active .nav-link {
