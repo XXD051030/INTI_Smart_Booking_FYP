@@ -7,9 +7,3 @@ RewriteRule ^test_rewrite$ test_rewrite.php?test=1 [L,QSA]
 # Original rules for homepage
 RewriteRule ^$ general.php [L]
 RewriteRule ^/$ general.php [L]
-
-RewriteRule ^login$ login.php [L]
-RewriteRule ^login/$ login.php [L]
-
-RewriteRule ^register$ register.php [L]
-RewriteRule ^register/$ register.php [L]
