@@ -26,12 +26,10 @@
 }
 
 .login-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    max-width: 1200px;
-    width: 100%;
+    justify-content: center;
     align-items: center;
+    max-width: 500px;
+    width: 100%;
     position: relative;
     z-index: 1;
 }
@@ -247,71 +245,10 @@
     text-decoration: underline;
 }
 
-.login-info {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    opacity: 0;
-    transform: translateX(30px);
-    transition: all 0.8s ease 0.3s;
-}
-
-.login-info.fade-in {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.info-card {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 25px;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-}
-
-.info-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.25);
-}
-
-.info-card i {
-    font-size: 2.5rem;
-    color: white;
-    margin-bottom: 15px;
-    display: block;
-}
-
-.info-card h4 {
-    color: white;
-    font-weight: 600;
-    margin-bottom: 10px;
-    font-size: 1.3rem;
-}
-
-.info-card p {
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-    line-height: 1.6;
-}
-
 /* Responsive Design */
 @media (max-width: 992px) {
     .login-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        max-width: 500px;
-    }
-    
-    .login-info {
-        flex-direction: row;
-        overflow-x: auto;
-        padding-bottom: 10px;
-    }
-    
-    .info-card {
-        min-width: 200px;
+        max-width: 450px;
     }
 }
 
@@ -324,12 +261,7 @@
         font-size: 1.8rem;
     }
     
-    .social-login {
-        flex-direction: column;
-    }
-    
-    .login-info {
-        flex-direction: column;
-        gap: 20px;
+    .login-container {
+        max-width: 400px;
     }
 } 

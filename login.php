@@ -70,24 +70,6 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </form>
         </div>
-        
-        <div class="login-info">
-            <div class="info-card">
-                <i class="fas fa-calendar-check"></i>
-                <h4>Easy Booking</h4>
-                <p>Book rooms and facilities with just a few clicks</p>
-            </div>
-            <div class="info-card">
-                <i class="fas fa-clock"></i>
-                <h4>Real-time Updates</h4>
-                <p>Get instant notifications about your reservations</p>
-            </div>
-            <div class="info-card">
-                <i class="fas fa-shield-alt"></i>
-                <h4>Secure Platform</h4>
-                <p>Your data is protected with enterprise-grade security</p>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -160,7 +142,6 @@ if (isset($_SESSION['user_id'])) {
         // Add fade-in animation
         window.addEventListener('load', function() {
             document.querySelector('.login-card').classList.add('fade-in');
-            document.querySelector('.login-info').classList.add('fade-in');
         });
     </script>
 
