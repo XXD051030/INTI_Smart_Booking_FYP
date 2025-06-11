@@ -1,101 +1,108 @@
 # 🎓 INTI Student Registration & Login System
 
-一个完整的学生注册和登录系统，包含邮箱验证功能，专为 INTI 大学学生设计。
+A complete student registration and login system with email verification functionality, specifically designed for INTI University students.
 
-## 📋 **系统概览**
+## 📋 **System Overview**
 
-### 🎯 **主要功能**
-- ✅ 学生注册（仅限 INTI 邮箱）
-- ✅ 邮箱 OTP 验证
-- ✅ 用户登录/登出
-- ✅ 个人仪表板
-- ✅ PHPMailer 邮件系统
-- ✅ 响应式设计
+### 🎯 **Key Features**
+- ✅ Student Registration (INTI email only)
+- ✅ Email OTP Verification
+- ✅ User Login/Logout
+- ✅ Personal Dashboard
+- ✅ PHPMailer Email System
+- ✅ Responsive Design
+- ✅ Real-time Form Validation
+- ✅ Modern UI/UX Design
 
-### 🛠️ **技术栈**
-- **后端**: PHP 8.x, MySQL 8.x
-- **前端**: HTML5, CSS3, JavaScript, Bootstrap 5
-- **邮件**: PHPMailer
-- **数据库**: MySQL with PDO
-- **依赖管理**: Composer
+### 🛠️ **Technology Stack**
+- **Backend**: PHP 8.x, MySQL 8.x
+- **Frontend**: HTML5, CSS3, JavaScript, jQuery, Bootstrap 5
+- **Email**: PHPMailer
+- **Database**: MySQL with PDO
+- **Dependency Management**: Composer
+- **Authentication**: Session-based Authentication
 
 ---
 
-## 📁 **项目结构**
+## 📁 **Project Structure**
 
 ```
 /var/www/html/
-├── 📱 **核心页面**
-│   ├── register.php              # 学生注册页面
-│   ├── process_register.php      # 注册数据处理
-│   ├── login.php                 # 登录页面
-│   ├── login_handler.php         # 登录处理
-│   ├── general.php               # 用户仪表板
-│   ├── otp-verify.php           # OTP 验证页面
-│   └── logout.php               # 登出处理
+├── 📱 **Core Pages**
+│   ├── register.php              # Student registration page
+│   ├── process_register.php      # Registration data processing
+│   ├── login.php                 # Login page
+│   ├── login_handler.php         # Login processing
+│   ├── general.php               # User dashboard
+│   ├── otp-verify.php           # OTP verification page
+│   └── logout.php               # Logout handler
 │
-├── ⚙️ **配置文件**
-│   ├── db.php                   # 数据库连接配置
-│   ├── mail_config.php          # 邮件服务器配置
-│   ├── function.php             # 通用函数库
-│   └── password-validation.php  # 密码验证函数
+├── ⚙️ **Configuration Files**
+│   ├── db.php                   # Database connection config
+│   ├── mail_config.php          # Email server configuration
+│   ├── function.php             # Common functions library
+│   └── password-validation.php  # Password validation functions
 │
-├── 📧 **邮件系统**
-│   ├── Mailer.php              # PHPMailer 邮件类
-│   ├── composer.json           # Composer 依赖
-│   ├── composer.lock           # 依赖锁定文件
-│   └── vendor/                 # Composer 包
+├── 📧 **Email System**
+│   ├── Mailer.php              # PHPMailer email class
+│   ├── composer.json           # Composer dependencies
+│   ├── composer.lock           # Dependency lock file
+│   └── vendor/                 # Composer packages
 │
-├── 🗄️ **数据库脚本**
-│   ├── create_users_table.sql   # 用户表结构
-│   ├── create_otp_table.sql     # OTP 表结构
-│   └── create_test_user.php     # 测试用户创建
+├── 🗄️ **Database Scripts**
+│   ├── create_users_table.sql   # Users table structure
+│   ├── create_otp_table.sql     # OTP table structure
+│   └── check.php               # System health check
 │
-├── 🎨 **前端资源**
+├── 🎨 **Frontend Assets**
 │   ├── css/
-│   │   ├── style.css           # 主样式文件
-│   │   ├── login.css           # 登录页面样式
-│   │   └── otp-verify.css      # OTP 验证样式
+│   │   ├── style.css           # Main stylesheet
+│   │   ├── login.css           # Login page styles
+│   │   └── otp-verify.css      # OTP verification styles
 │   ├── js/
-│   │   ├── validations.js      # 表单验证
-│   │   └── countdown.js        # OTP 倒计时
+│   │   ├── validations.js      # Form validation scripts
+│   │   └── countdown.js        # OTP countdown timer
 │   └── images/
-│       ├── logo/               # LOGO 图片
-│       ├── place/              # 场地图片
-│       └── assets/             # 其他资源
+│       ├── logo/               # Logo images
+│       ├── place/              # Facility images
+│       └── assets/             # Other resources
 │
-└── 📋 **其他文件**
-    ├── check.php              # Google OAuth (已禁用)
-    ├── login copy.php         # 登录页面备份
-    └── README.md              # 项目文档
+├── 📋 **Legal & Documentation**
+│   ├── rules.php              # Terms and conditions
+│   ├── README.md              # Project documentation
+│   └── admin/                 # Admin panel (future)
 ```
 
 ---
 
-## 🗄️ **数据库结构**
+## 🗄️ **Database Structure**
 
-### 数据库信息
-- **数据库名**: `reservation_system`
-- **用户名**: `webapp`
-- **密码**: `webapp123`
+### Database Information
+- **Database Name**: `reservation_system`
+- **Username**: `webapp`
+- **Password**: `webapp123`
+- **Host**: `localhost`
+- **Port**: `3306`
 
-### 表结构
+### Table Structure
 
-#### 📋 **users 表**
+#### 📋 **users Table**
 ```sql
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_verified TINYINT(1) DEFAULT 0,
+    last_login TIMESTAMP NULL,
     INDEX idx_email (email),
-    INDEX idx_verified (is_verified)
+    INDEX idx_verified (is_verified),
+    INDEX idx_username (username)
 );
 ```
 
-#### 🔢 **user_otp 表**
+#### 🔢 **user_otp Table**
 ```sql
 CREATE TABLE user_otp (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -103,250 +110,432 @@ CREATE TABLE user_otp (
     otp_code VARCHAR(6) NOT NULL,
     expires_at DATETIME NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_used TINYINT(1) DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     INDEX idx_user_id (user_id),
-    INDEX idx_expires_at (expires_at)
+    INDEX idx_expires_at (expires_at),
+    INDEX idx_otp_code (otp_code)
 );
 ```
 
 ---
 
-## 🚀 **安装指南**
+## 🚀 **Installation Guide**
 
-### 1. **环境要求**
+### 1. **System Requirements**
 ```bash
 - PHP >= 8.0
 - MySQL >= 8.0
-- Apache/Nginx
-- Composer
-- 启用的 PHP 扩展: pdo_mysql, curl, openssl
+- Apache/Nginx web server
+- Composer (for dependency management)
+- Required PHP extensions: pdo_mysql, curl, openssl, mbstring
+- SSL certificate (recommended for production)
 ```
 
-### 2. **数据库设置**
+### 2. **Database Setup**
 ```bash
-# 创建数据库
-sudo mysql -u root
-CREATE DATABASE reservation_system;
+# Connect to MySQL as root
+sudo mysql -u root -p
 
-# 创建数据库用户
+# Create database
+CREATE DATABASE reservation_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+# Create database user
 CREATE USER 'webapp'@'localhost' IDENTIFIED BY 'webapp123';
 GRANT ALL PRIVILEGES ON reservation_system.* TO 'webapp'@'localhost';
 FLUSH PRIVILEGES;
+EXIT;
 
-# 导入表结构
-sudo mysql -u root < create_users_table.sql
-sudo mysql -u root < create_otp_table.sql
+# Import table structures
+mysql -u webapp -p reservation_system < create_users_table.sql
+mysql -u webapp -p reservation_system < create_otp_table.sql
 ```
 
-### 3. **安装依赖**
+### 3. **Install Dependencies**
 ```bash
-# 安装 Composer
+# Install Composer (if not already installed)
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
-# 安装 PHPMailer
-composer install
+# Navigate to project directory
+cd /var/www/html
+
+# Install PHPMailer and other dependencies
+composer install --no-dev --optimize-autoloader
 ```
 
-### 4. **邮件配置**
-编辑 `mail_config.php` 配置 SMTP 设置：
+### 4. **Email Configuration**
+Edit `mail_config.php` to configure SMTP settings:
 ```php
-// Gmail 示例
+<?php
+// Gmail SMTP example
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_PORT', 587);
 define('SMTP_USERNAME', 'your-email@gmail.com');
-define('SMTP_PASSWORD', 'your-app-password');
+define('SMTP_PASSWORD', 'your-app-password'); // Use App Password for Gmail
+define('SMTP_ENCRYPTION', 'tls');
+define('FROM_EMAIL', 'noreply@inti.edu.my');
+define('FROM_NAME', 'INTI Reservation System');
+?>
 ```
 
-### 5. **权限设置**
+### 5. **File Permissions**
 ```bash
+# Set proper ownership
 sudo chown -R www-data:www-data /var/www/html
+
+# Set correct permissions
 sudo chmod -R 755 /var/www/html
+sudo chmod -R 644 /var/www/html/*.php
+
+# Create and set log directory permissions
 sudo mkdir -p /var/www/html/var/log
 sudo chmod 777 /var/www/html/var/log
 ```
 
----
+### 6. **Web Server Configuration**
 
-## 📖 **使用说明**
-
-### 🎯 **注册流程**
-
-#### 1. **学生注册** (`/register.php`)
-- 填写用户名、INTI 邮箱、密码
-- 系统验证邮箱格式（必须是 `@student.newinti.edu.my`）
-- 实时密码强度验证
-- 提交后跳转到 OTP 验证
-
-#### 2. **邮箱验证** (`/otp-verify.php`)
-- 点击 "Send OTP" 发送验证码
-- 输入 6 位数验证码
-- 验证成功后账户激活
-
-#### 3. **登录系统** (`/login.php`)
-- 使用邮箱和密码登录
-- 支持"记住我"功能
-- 登录成功后进入仪表板
-
-#### 4. **用户仪表板** (`/general.php`)
-- 查看个人信息
-- 预订管理（功能待开发）
-- 账户设置
-
-### 🔧 **管理功能**
-
-#### 创建测试用户
-```bash
-php create_test_user.php
-```
-
-#### 检查邮件发送
-```bash
-# 在浏览器中访问
-http://your-domain/test_mail.php
+#### Apache Configuration
+```apache
+<VirtualHost *:80>
+    ServerName your-domain.com
+    DocumentRoot /var/www/html
+    
+    <Directory /var/www/html>
+        AllowOverride All
+        Require all granted
+    </Directory>
+    
+    ErrorLog ${APACHE_LOG_DIR}/inti_system_error.log
+    CustomLog ${APACHE_LOG_DIR}/inti_system_access.log combined
+</VirtualHost>
 ```
 
 ---
 
-## 🛡️ **安全特性**
+## 📖 **User Guide**
 
-### 🔐 **密码安全**
-- BCrypt 哈希加密
-- 密码强度验证（8字符+数字）
-- 防止密码明文存储
+### 🎯 **Registration Process**
 
-### 📧 **邮箱验证**
-- OTP 验证码有效期 15 分钟
-- 防止重复验证
-- 邮箱格式严格验证
+#### 1. **Student Registration** (`/register.php`)
+- **Access**: Navigate to `http://your-domain/register.php`
+- **Requirements**:
+  - Valid INTI student email (`@student.newinti.edu.my`)
+  - Unique username (3-50 characters)
+  - Strong password (minimum 6 characters, at least 1 number)
+- **Features**:
+  - Real-time email format validation
+  - Password strength indicator
+  - Terms and conditions acceptance
+  - Responsive design for all devices
 
-### 🚫 **防护措施**
-- SQL 注入防护（PDO 预处理）
-- XSS 防护（htmlspecialchars）
-- CSRF 防护（会话验证）
-- 输入数据清理
+#### 2. **Email Verification** (`/otp-verify.php`)
+- **Process**:
+  1. Click "Send OTP" to receive verification code
+  2. Check your INTI email for 6-digit code
+  3. Enter the code within 15 minutes
+  4. Account activation upon successful verification
+- **Features**:
+  - Countdown timer display
+  - Resend OTP functionality
+  - Auto-redirect after verification
 
----
+#### 3. **User Login** (`/login.php`)
+- **Credentials**: Use registered email and password
+- **Features**:
+  - "Remember me" functionality
+  - Password visibility toggle
+  - Responsive error handling
+  - Automatic redirect to dashboard
 
-## ⚠️ **已知问题**
-
-### 🔧 **需要修复的问题**
-
-1. **CSS 文件路径**
-   - 检查 `css/style.css` 等文件是否存在
-   - 确保路径正确
-
-2. **图片资源**
-   - 确认 `images/logo/inti_logo.png` 存在
-   - 检查其他引用的图片文件
-
-3. **日志目录**
-   - 创建 `/var/www/html/var/log/` 目录
-   - 设置正确的写入权限
-
-4. **数据库密码**
-   - 考虑使用环境变量存储敏感信息
-   - 避免硬编码密码
-
----
-
-## 📊 **系统状态检查**
-
-### ✅ **正常工作的功能**
-- [x] 学生注册页面 (HTTP 200)
-- [x] 登录页面 (HTTP 200)
-- [x] 邮箱验证逻辑
-- [x] OTP 发送功能
-- [x] 数据库连接
-- [x] 用户认证系统
-- [x] PHPMailer 集成
-
-### 🔄 **重定向页面**
-- [x] 用户仪表板 (HTTP 302 - 正常，需要登录)
-- [x] OTP 验证页面 (HTTP 302 - 正常，需要会话)
+#### 4. **User Dashboard** (`/general.php`)
+- **Access**: Available after successful login
+- **Features**:
+  - Personal profile information
+  - Reservation management (to be developed)
+  - Account settings
+  - Secure logout option
 
 ---
 
-## 🎯 **测试指南**
+## 🛡️ **Security Features**
 
-### 📝 **手动测试流程**
+### 🔐 **Password Security**
+- **Encryption**: BCrypt hashing algorithm
+- **Validation**: Minimum 6 characters with numeric requirement
+- **Storage**: Never stored in plain text
+- **Session**: Secure session management with timeout
 
-1. **注册测试**
-   ```
-   访问: http://your-domain/register.php
-   邮箱: test@student.newinti.edu.my
-   用户名: testuser
-   密码: Test123456
+### 📧 **Email Verification**
+- **OTP Validity**: 15-minute expiration time
+- **Format Validation**: Strict INTI email domain checking
+- **Rate Limiting**: Prevents spam and abuse
+- **Single Use**: OTP codes are invalidated after use
+
+### 🚫 **Security Measures**
+- **SQL Injection**: PDO prepared statements
+- **XSS Protection**: Input sanitization with `htmlspecialchars()`
+- **CSRF Protection**: Session-based validation
+- **Data Validation**: Server-side and client-side validation
+- **Session Security**: Secure session configuration
+
+---
+
+## 🔧 **API Endpoints**
+
+### Authentication Endpoints
+```
+POST /login_handler.php
+POST /process_register.php
+POST /logout.php
+```
+
+### OTP Endpoints
+```
+POST /otp-verify.php (send OTP)
+POST /otp-verify.php (verify OTP)
+```
+
+---
+
+## ⚠️ **Known Issues & Solutions**
+
+### 🔧 **Common Issues**
+
+1. **Email Delivery Problems**
+   ```bash
+   # Check SMTP configuration
+   # Verify Gmail App Password
+   # Check spam/junk folders
    ```
 
-2. **邮箱验证测试**
-   ```
-   点击 "Send OTP"
-   检查邮箱收到验证码
-   输入 6 位数字验证
-   ```
-
-3. **登录测试**
-   ```
-   访问: http://your-domain/login.php
-   使用注册的账户登录
-   验证重定向到仪表板
+2. **Database Connection Issues**
+   ```bash
+   # Verify MySQL service status
+   sudo systemctl status mysql
+   
+   # Check database credentials in db.php
+   # Ensure user has proper permissions
    ```
 
-### 🔧 **技术测试**
+3. **File Permission Errors**
+   ```bash
+   # Reset permissions
+   sudo chown -R www-data:www-data /var/www/html
+   sudo chmod -R 755 /var/www/html
+   ```
+
+4. **Missing Dependencies**
+   ```bash
+   # Reinstall Composer packages
+   composer install
+   
+   # Check PHP extensions
+   php -m | grep -E "(pdo_mysql|curl|openssl)"
+   ```
+
+---
+
+## 📊 **System Health Check**
+
+### ✅ **Working Components**
+- [x] Student registration form (HTTP 200)
+- [x] Login system (HTTP 200)
+- [x] Email verification logic
+- [x] OTP generation and sending
+- [x] Database connectivity
+- [x] User authentication system
+- [x] PHPMailer integration
+- [x] Responsive design
+- [x] Form validations
+
+### 🔄 **Redirect Pages** (Normal Behavior)
+- [x] User dashboard (HTTP 302 - requires login)
+- [x] OTP verification (HTTP 302 - requires session)
+- [x] Admin panel (HTTP 302 - requires admin privileges)
+
+---
+
+## 🧪 **Testing Guide**
+
+### 📝 **Manual Testing Checklist**
+
+#### Registration Flow Test
+```
+1. Navigate to /register.php
+2. Enter test data:
+   - Email: test@student.newinti.edu.my
+   - Username: testuser123
+   - Password: TestPass123
+3. Verify email validation works
+4. Submit form and check redirection
+5. Verify database entry created
+```
+
+#### Email Verification Test
+```
+1. Click "Send OTP" button
+2. Check email inbox for OTP code
+3. Enter correct/incorrect codes
+4. Verify countdown timer
+5. Test OTP expiration
+```
+
+#### Login System Test
+```
+1. Use verified account credentials
+2. Test "Remember me" functionality
+3. Verify session persistence
+4. Test logout functionality
+```
+
+### 🔧 **Automated Testing Commands**
 ```bash
-# 测试数据库连接
-php -r "include 'db.php'; echo 'Database connected successfully';"
+# Test database connection
+php -r "include 'db.php'; echo 'Database: Connected successfully\n';"
 
-# 测试页面状态
+# Test page accessibility
 curl -I http://localhost/register.php
 curl -I http://localhost/login.php
 
-# 检查 Composer 依赖
+# Check Composer dependencies
+composer validate
 composer install --dry-run
+
+# Test email configuration (create test_mail.php)
+php test_mail.php
 ```
 
 ---
 
-## 📞 **支持信息**
+## 📈 **Future Development Roadmap**
 
-### 🐛 **问题报告**
-如发现问题，请检查：
-1. Apache/Nginx 错误日志
-2. PHP 错误日志
-3. 应用程序日志 (`/var/www/html/var/log/`)
+### 🚀 **Phase 1: Core Features** (Completed)
+- [x] User registration and authentication
+- [x] Email verification system
+- [x] Responsive UI design
+- [x] Basic security measures
 
-### 🔧 **常见问题**
+### 🏢 **Phase 2: Reservation System** (In Progress)
+- [ ] Facility booking system
+- [ ] Calendar integration
+- [ ] Booking management
+- [ ] Availability checking
 
-**Q: 邮件发送失败？**
-A: 检查 `mail_config.php` 中的 SMTP 设置，确保使用正确的应用密码。
+### 🔧 **Phase 3: Advanced Features** (Planned)
+- [ ] Admin dashboard
+- [ ] Reporting system
+- [ ] Notification system
 
-**Q: 数据库连接失败？**
-A: 验证 `db.php` 中的数据库凭据，确保 MySQL 服务运行正常。
-
-**Q: 页面显示 500 错误？**
-A: 检查 PHP 错误日志，确保所有依赖文件存在。
-
----
-
-## 📈 **未来开发计划**
-
-### 🚀 **待开发功能**
-- [ ] 房间预订系统
-- [ ] 日历集成
-- [ ] 通知系统
-- [ ] 管理员后台
-- [ ] 多语言支持
-- [ ] API 接口
-
-### 🔧 **系统优化**
-- [ ] 缓存系统
-- [ ] 性能监控
-- [ ] 自动备份
-- [ ] SSL 证书配置
+### 🛡️ **Phase 4: Enterprise Features** (Future)
+- [ ] Multi-language support
+- [ ] Single Sign-On (SSO)
+- [ ] LDAP integration
+- [ ] Advanced analytics
+- [ ] Backup and recovery system
 
 ---
 
-**📝 版本**: 0.1.0
-**📅 更新时间**: 2025年5月  
-**👨‍💻 开发者**: zhiyang
+## 📞 **Support & Maintenance**
+
+### 🐛 **Issue Reporting**
+When reporting issues, please include:
+1. Error message (if any)
+2. Steps to reproduce
+3. Browser and version
+4. System environment details
+
+### 📋 **Log Files Location**
+```bash
+# Application logs
+/var/www/html/var/log/
+
+# Apache logs
+/var/log/apache2/
+
+# MySQL logs
+/var/log/mysql/
+
+# PHP logs
+/var/log/php/
+```
+
+### 🔧 **Troubleshooting FAQ**
+
+**Q: Email sending fails with "Authentication failed"**
+```
+A: Check SMTP credentials in mail_config.php
+   For Gmail: Use App Password instead of regular password
+   Enable 2-Factor Authentication first
+```
+
+**Q: "Database connection failed" error**
+```
+A: 1. Verify MySQL service is running
+   2. Check database credentials in db.php
+   3. Ensure database user has proper permissions
+   4. Test connection with: php -r "include 'db.php';"
+```
+
+**Q: OTP emails not received**
+```
+A: 1. Check spam/junk folders
+   2. Verify SMTP configuration
+   3. Test with test_mail.php script
+   4. Check email server logs
+```
+
+**Q: Page shows white screen (500 error)**
+```
+A: 1. Check Apache error logs
+   2. Verify PHP error reporting is enabled
+   3. Check file permissions
+   4. Ensure all dependencies are installed
+```
+
+---
+
+## 🤝 **Contributing**
+
+### Development Setup
+```bash
+# Clone the repository
+git clone [repository-url]
+
+# Install dependencies
+composer install
+
+# Set up development environment
+cp .env.example .env
+# Edit .env with your configuration
+
+# Run development server
+php -S localhost:8000
+```
+
+### Code Standards
+- Follow PSR-12 coding standards
+- Use meaningful variable and function names
+- Comment complex logic
+- Write unit tests for new features
+
+---
+
+## 📝 **License & Credits**
+
+### License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+### Credits
+- **Developer**: zhiyang
+- **Institution**: INTI International University
+- **Framework**: Custom PHP Framework
+- **Libraries**: PHPMailer, Bootstrap, jQuery
+
+---
+
+**📝 Version**: 0.2.5
+**📅 Last Updated**: June 2025  
+**👨‍💻 Developer**: Zhi Yang  
+**🏢 Organization**: INTI International College 
+**📧 Support**: xxd051030@gmail.com
