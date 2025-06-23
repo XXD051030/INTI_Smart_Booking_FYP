@@ -82,8 +82,13 @@ try {
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="booking.php">
                             <i class="fas fa-book"></i> Booking
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="my_bookings.php">
+                            <i class="fas fa-history"></i> My Bookings
                         </a>
                     </div>
                     <div class="nav-item">
@@ -141,9 +146,9 @@ try {
                             <img src="images/place/discussion_room.jpg" alt="Discussion Room">
                             <div class="content">
                                 <h3>Discussion Room</h3>
-                                <button class="btn-book">
+                                <a href="booking.php" class="btn-book">
                                     <i class="fas fa-plus me-1"></i> Book Now
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -152,9 +157,9 @@ try {
                             <img src="images/place/basketball_court.jpg" alt="Sport Facilities">
                             <div class="content">
                                 <h3>Sport Facilities</h3>
-                                <button class="btn-book">
+                                <a href="booking.php" class="btn-book">
                                     <i class="fas fa-plus me-1"></i> Book Now
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -166,9 +171,9 @@ try {
                             <img src="images/place/stem_lab.jpg" alt="STEM Lab">
                             <div class="content">
                                 <h3>STEM Lab</h3>
-                                <button class="btn-book">
+                                <a href="booking.php" class="btn-book">
                                     <i class="fas fa-plus me-1"></i> Book Now
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

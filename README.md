@@ -1,6 +1,6 @@
-# 🎓 INTI Student Registration & Login System
+# 🎓 INTI Student Registration & Facility Booking System
 
-A complete student registration and login system with email verification functionality, specifically designed for INTI University students.
+A comprehensive student registration, authentication, and facility booking system with email verification functionality, specifically designed for INTI University students.
 
 ## 📋 **System Overview**
 
@@ -9,6 +9,10 @@ A complete student registration and login system with email verification functio
 - ✅ Email OTP Verification
 - ✅ User Login/Logout
 - ✅ Personal Dashboard
+- ✅ **Multi-Slot Facility Booking System** 🆕
+- ✅ **1-2 Hour Consecutive Bookings** 🆕
+- ✅ **Real-time Availability Checking** 🆕
+- ✅ **Booking Management & Cancellation** 🆕
 - ✅ PHPMailer Email System
 - ✅ Responsive Design
 - ✅ Real-time Form Validation
@@ -37,6 +41,13 @@ A complete student registration and login system with email verification functio
 │   ├── otp-verify.php           # OTP verification page
 │   └── logout.php               # Logout handler
 │
+├── 🏢 **Booking System** 🆕
+│   ├── booking.php              # Multi-slot facility booking interface
+│   ├── process_booking.php      # Booking data processing & validation
+│   ├── check_availability.php   # Real-time availability API
+│   ├── my_bookings.php         # Booking management & history
+│   └── cancel_booking.php      # Booking cancellation handler
+│
 ├── ⚙️ **Configuration Files**
 │   ├── db.php                   # Database connection config
 │   ├── mail_config.php          # Email server configuration
@@ -52,15 +63,20 @@ A complete student registration and login system with email verification functio
 ├── 🗄️ **Database Scripts**
 │   ├── create_users_table.sql   # Users table structure
 │   ├── create_otp_table.sql     # OTP table structure
+│   ├── create_facilities_table.sql # Facilities table structure 🆕
+│   ├── create_bookings_table.sql   # Bookings table structure 🆕
 │   └── check.php               # System health check
 │
 ├── 🎨 **Frontend Assets**
 │   ├── css/
 │   │   ├── style.css           # Main stylesheet
 │   │   ├── login.css           # Login page styles
+│   │   ├── booking.css         # Booking system styles 🆕
 │   │   └── otp-verify.css      # OTP verification styles
 │   ├── js/
 │   │   ├── validations.js      # Form validation scripts
+│   │   ├── booking.js          # Multi-slot booking logic 🆕
+│   │   ├── my_bookings.js      # Booking management scripts 🆕
 │   │   └── countdown.js        # OTP countdown timer
 │   └── images/
 │       ├── logo/               # Logo images
@@ -70,6 +86,7 @@ A complete student registration and login system with email verification functio
 ├── 📋 **Legal & Documentation**
 │   ├── rules.php              # Terms and conditions
 │   ├── README.md              # Project documentation
+│   ├── BOOKING_SYSTEM_README.md # Detailed booking system docs 🆕
 │   └── admin/                 # Admin panel (future)
 ```
 
@@ -118,6 +135,45 @@ CREATE TABLE user_otp (
 );
 ```
 
+#### 🏢 **facilities Table** 🆕
+```sql
+CREATE TABLE facilities (
+    facility_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    type ENUM('discussion_room', 'basketball_court', 'stem_lab') NOT NULL,
+    capacity INT NOT NULL,
+    location VARCHAR(150) NOT NULL,
+    image_path VARCHAR(255) NOT NULL,
+    advance_booking_days INT DEFAULT 7,
+    is_active TINYINT(1) DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_type (type),
+    INDEX idx_active (is_active)
+);
+```
+
+#### 📅 **bookings Table** 🆕
+```sql
+CREATE TABLE bookings (
+    booking_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    facility_id INT NOT NULL,
+    booking_date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    purpose TEXT NOT NULL,
+    status ENUM('confirmed', 'cancelled') DEFAULT 'confirmed',
+    cancelled_at TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (facility_id) REFERENCES facilities(facility_id) ON DELETE CASCADE,
+    INDEX idx_user_date (user_id, booking_date),
+    INDEX idx_facility_date (facility_id, booking_date),
+    INDEX idx_status (status),
+    UNIQUE KEY unique_booking (facility_id, booking_date, start_time)
+);
+```
+
 ---
 
 ## 🚀 **Installation Guide**
@@ -149,6 +205,8 @@ EXIT;
 # Import table structures
 mysql -u webapp -p reservation_system < create_users_table.sql
 mysql -u webapp -p reservation_system < create_otp_table.sql
+mysql -u webapp -p reservation_system < create_facilities_table.sql
+mysql -u webapp -p reservation_system < create_bookings_table.sql
 ```
 
 ### 3. **Install Dependencies**
@@ -213,6 +271,136 @@ sudo chmod 777 /var/www/html/var/log
 
 ---
 
+## 🏢 **Multi-Slot Booking System** 🆕
+
+### 🎯 **Booking Features**
+- **Multi-Time Slot Selection**: Book 1 or 2 consecutive hours
+- **Real-Time Availability**: Live checking with visual feedback  
+- **Smart Validation**: Ensures consecutive slot booking only
+- **Daily Limits**: Maximum 2 bookings per user per day
+- **Advanced Booking Rules**: 
+  - Discussion Rooms: Same day only
+  - Basketball Court: Up to 7 days advance
+  - STEM Lab: Up to 1 day advance
+- **Instant Cancellation**: Cancel up to 30 minutes before start time
+- **Email Notifications**: Confirmation and cancellation emails
+
+### 🏗️ **Available Facilities**
+| Facility | Type | Capacity | Advance Booking | Operating Hours |
+|----------|------|----------|----------------|-----------------|
+| Discussion Room A | Discussion Room | 8 people | Same day only | 08:00 - 17:00 |
+| Discussion Room B | Discussion Room | 10 people | Same day only | 08:00 - 17:00 |
+| Discussion Room C | Discussion Room | 6 people | Same day only | 08:00 - 17:00 |
+| Basketball Court | Sports Court | 20 people | Up to 7 days | 08:00 - 17:00 |
+| STEM Lab | Laboratory | 15 people | Up to 1 day | 08:00 - 17:00 |
+
+### 🎮 **How Multi-Slot Booking Works**
+
+#### 1. **Single Hour Booking** (Traditional)
+```
+User selects: 09:00
+Result: 09:00 - 10:00 (1 hour)
+```
+
+#### 2. **Double Hour Booking** (New Feature) 🆕
+```
+User selects: 09:00, then 10:00
+Result: 09:00 - 11:00 (2 consecutive hours)
+```
+
+#### 3. **Smart Validation**
+- ✅ **Allowed**: 09:00 + 10:00 (consecutive)
+- ❌ **Blocked**: 09:00 + 11:00 (not consecutive)
+- ❌ **Blocked**: More than 2 slots selected
+- ❌ **Blocked**: Slots on different days
+
+### 📱 **Booking Interface Guide**
+
+#### **Step 1: Select Facility** (`/booking.php`)
+- Filter by type (Discussion/Sports/STEM)
+- View capacity and advance booking rules
+- Real-time facility availability status
+
+#### **Step 2: Choose Date**
+- Date picker with validation
+- Shows maximum advance booking allowed
+- Disabled dates for same-day-only facilities
+
+#### **Step 3: Multi-Slot Time Selection** 🆕
+- **Visual Time Grid**: 9 hourly slots (08:00-16:00)
+- **Color-Coded Status**:
+  - 🟢 **Green**: Available slots
+  - 🔵 **Blue**: Your selected slots
+  - 🔴 **Red**: Already booked
+  - ⚪ **Gray**: Non-consecutive (when 1+ slot selected)
+- **Interactive Selection**:
+  - Click to select/deselect slots
+  - Maximum 2 consecutive slots
+  - Real-time validation feedback
+
+#### **Step 4: Booking Confirmation**
+- **Dynamic Summary**: Shows total duration (1-2 hours)
+- **Purpose Description**: Minimum 10 characters required
+- **Daily Limit Check**: Prevents exceeding 2 bookings/day
+- **Instant Processing**: Real-time availability recheck
+
+### 🔧 **Booking Management** (`/my_bookings.php`)
+
+#### **Booking History Features**
+- **Advanced Filtering**: By status, date range, facility type
+- **Pagination**: Handle large booking histories
+- **Booking Details**: Complete information display
+- **Status Tracking**: Confirmed, Cancelled with timestamps
+
+#### **Smart Cancellation**
+- **Time Window**: Cancel up to 30 minutes before start
+- **Automatic Validation**: Prevents late cancellations
+- **Email Confirmation**: Cancellation notification sent
+- **Multi-Slot Handling**: Cancels all related consecutive bookings
+
+### 📊 **Booking Business Logic**
+
+#### **Daily Booking Limits**
+- **Rule**: Maximum 2 bookings per user per day
+- **Counting**: Each time slot = 1 booking
+- **Example**: 
+  - ✅ 09:00-10:00 + 14:00-15:00 = 2 bookings (allowed)
+  - ❌ 09:00-10:00 + 11:00-12:00 + 14:00-15:00 = 3 bookings (blocked)
+
+#### **Advance Booking Rules**
+```php
+// Discussion Rooms: Same day only
+if ($facility_type === 'discussion_room' && $booking_date > $today) {
+    return 'error: Same day booking only';
+}
+
+// Basketball Court: Up to 7 days
+if ($facility_type === 'basketball_court' && $days_advance > 7) {
+    return 'error: Maximum 7 days advance booking';
+}
+
+// STEM Lab: Up to 1 day  
+if ($facility_type === 'stem_lab' && $days_advance > 1) {
+    return 'error: Maximum 1 day advance booking';
+}
+```
+
+#### **Consecutive Slot Validation**
+```javascript
+// JavaScript validation for consecutive slots
+function isConsecutiveSlot(newSlot) {
+    if (selectedSlots.length === 0) return true;
+    
+    const timeIndex = TIME_SLOTS.indexOf(newSlot);
+    const selectedIndices = selectedSlots.map(slot => TIME_SLOTS.indexOf(slot));
+    
+    // Check if adjacent to any selected slot
+    return selectedIndices.some(index => Math.abs(timeIndex - index) === 1);
+}
+```
+
+---
+
 ## 📖 **User Guide**
 
 ### 🎯 **Registration Process**
@@ -252,9 +440,35 @@ sudo chmod 777 /var/www/html/var/log
 - **Access**: Available after successful login
 - **Features**:
   - Personal profile information
-  - Reservation management (to be developed)
+  - Quick access to booking system
+  - Recent booking history
   - Account settings
   - Secure logout option
+
+#### 5. **Facility Booking** (`/booking.php`) 🆕
+- **Multi-Slot Selection**: Choose 1 or 2 consecutive time slots
+- **Smart Interface**: 
+  - Real-time availability checking
+  - Visual feedback for slot selection
+  - Consecutive slot validation
+- **Booking Process**:
+  1. Select facility from categorized list
+  2. Choose valid date within advance booking limit
+  3. Select 1-2 consecutive time slots
+  4. Enter booking purpose (min 10 characters)
+  5. Confirm booking with email notification
+
+#### 6. **Booking Management** (`/my_bookings.php`) 🆕
+- **Comprehensive History**: View all past and upcoming bookings
+- **Advanced Filtering**: 
+  - Filter by status (All/Confirmed/Cancelled)
+  - Date range selection
+  - Facility type filtering
+- **Booking Actions**:
+  - View detailed booking information
+  - Cancel bookings (up to 30 minutes before start)
+  - Download booking confirmations
+- **Pagination**: Handle large booking histories efficiently
 
 ---
 
@@ -294,6 +508,59 @@ POST /logout.php
 ```
 POST /otp-verify.php (send OTP)
 POST /otp-verify.php (verify OTP)
+```
+
+### Booking System APIs 🆕
+```
+POST /check_availability.php        # Real-time slot availability
+POST /process_booking.php          # Multi-slot booking creation
+POST /cancel_booking.php           # Booking cancellation
+GET  /my_bookings.php              # User booking history (with AJAX)
+```
+
+#### **API Details**
+
+##### `/check_availability.php`
+```json
+// Request
+{
+    "facility_id": "1",
+    "date": "2024-06-24",
+    "action": "check_availability"
+}
+
+// Response
+{
+    "success": true,
+    "available_slots": [
+        {"time": "08:00", "available": true},
+        {"time": "09:00", "available": false},
+        {"time": "10:00", "available": true}
+    ]
+}
+```
+
+##### `/process_booking.php`
+```json
+// Request (Multi-slot)
+{
+    "facility_id": "1",
+    "booking_date": "2024-06-24",
+    "time_slots": "[\"09:00\",\"10:00\"]",
+    "start_time": "09:00",
+    "end_time": "11:00", 
+    "slot_count": 2,
+    "purpose": "Team meeting and presentation"
+}
+
+// Response
+{
+    "success": true,
+    "booking_ids": [123, 124],
+    "primary_booking_id": 123,
+    "slot_count": 2,
+    "booking_time": "9:00 AM - 11:00 AM (2 hours, consecutive slots)"
+}
 ```
 
 ---
@@ -345,9 +612,15 @@ POST /otp-verify.php (verify OTP)
 - [x] OTP generation and sending
 - [x] Database connectivity
 - [x] User authentication system
+- [x] **Multi-Slot Booking System** 🆕
+- [x] **Real-time Availability Checking** 🆕
+- [x] **Consecutive Slot Validation** 🆕
+- [x] **Booking Management Interface** 🆕
+- [x] **Smart Cancellation System** 🆕
 - [x] PHPMailer integration
 - [x] Responsive design
 - [x] Form validations
+- [x] **Malaysia Timezone Configuration (UTC+8)** 🆕
 
 ### 🔄 **Redirect Pages** (Normal Behavior)
 - [x] User dashboard (HTTP 302 - requires login)
@@ -389,6 +662,40 @@ POST /otp-verify.php (verify OTP)
 4. Test logout functionality
 ```
 
+#### Multi-Slot Booking System Test 🆕
+```
+1. **Facility Selection Test**
+   - Navigate to /booking.php
+   - Test facility type filters (All/Discussion/Sports/STEM)
+   - Verify facility information display
+   - Check advance booking rules
+
+2. **Date Selection Test**
+   - Test date picker functionality
+   - Verify advance booking validation
+   - Check same-day-only restrictions for discussion rooms
+
+3. **Multi-Slot Time Selection Test**
+   - Select single time slot (traditional booking)
+   - Select 2 consecutive slots (new feature)
+   - Try selecting non-consecutive slots (should be blocked)
+   - Try selecting more than 2 slots (should be blocked)
+   - Verify visual feedback (colors, disabled states)
+
+4. **Booking Validation Test**
+   - Test purpose field validation (min 10 chars)
+   - Check daily booking limit (max 2 per day)
+   - Verify slot conflict detection
+   - Test booking confirmation email
+
+5. **Booking Management Test**
+   - Navigate to /my_bookings.php
+   - Test filtering by status/date/facility type
+   - Test booking cancellation (within 30-min window)
+   - Verify cancellation email notification
+   - Test pagination with multiple bookings
+```
+
 ### 🔧 **Automated Testing Commands**
 ```bash
 # Test database connection
@@ -397,42 +704,70 @@ php -r "include 'db.php'; echo 'Database: Connected successfully\n';"
 # Test page accessibility
 curl -I http://localhost/register.php
 curl -I http://localhost/login.php
+curl -I http://localhost/booking.php          # Booking system
+curl -I http://localhost/my_bookings.php      # Booking management
+
+# Test booking APIs
+curl -X POST http://localhost/check_availability.php \
+  -d "facility_id=1&date=2024-06-24" \
+  -H "Content-Type: application/x-www-form-urlencoded"
 
 # Check Composer dependencies
 composer validate
 composer install --dry-run
 
-# Test email configuration (create test_mail.php)
+# Test email configuration
 php test_mail.php
+
+# Verify booking system database tables
+mysql -u webapp -p reservation_system -e "
+  SHOW TABLES LIKE '%facilities%';
+  SHOW TABLES LIKE '%bookings%';
+  SELECT COUNT(*) as facility_count FROM facilities;
+"
+
+# Test timezone configuration
+php -r "
+  echo 'PHP Timezone: ' . date_default_timezone_get() . '\n';
+  echo 'Current Time: ' . date('Y-m-d H:i:s T') . '\n';
+"
 ```
 
 ---
 
 ## 📈 **Future Development Roadmap**
 
-### 🚀 **Phase 1: Core Features** (Completed)
+### 🚀 **Phase 1: Core Features** (✅ Completed)
 - [x] User registration and authentication
 - [x] Email verification system
 - [x] Responsive UI design
 - [x] Basic security measures
 
-### 🏢 **Phase 2: Reservation System** (In Progress)
-- [ ] Facility booking system
-- [ ] Calendar integration
-- [ ] Booking management
-- [ ] Availability checking
+### 🏢 **Phase 2: Multi-Slot Booking System** (✅ Completed) 🆕
+- [x] **Multi-slot facility booking (1-2 consecutive hours)**
+- [x] **Real-time availability checking with visual feedback**
+- [x] **Smart consecutive slot validation**
+- [x] **Advanced booking rules (same-day, 7-day, 1-day advance)**
+- [x] **Comprehensive booking management interface**
+- [x] **Smart cancellation system (30-minute window)**
+- [x] **Email notifications for bookings & cancellations**
+- [x] **Daily booking limits (max 2 per user)**
+- [x] **Timezone synchronization (Malaysia UTC+8)**
 
 ### 🔧 **Phase 3: Advanced Features** (Planned)
-- [ ] Admin dashboard
-- [ ] Reporting system
-- [ ] Notification system
+- [ ] Admin dashboard for facility management
+- [ ] Booking analytics and reporting system
+- [ ] Push notification system
+- [ ] Mobile app development
+- [ ] QR code check-in system
 
 ### 🛡️ **Phase 4: Enterprise Features** (Future)
-- [ ] Multi-language support
-- [ ] Single Sign-On (SSO)
-- [ ] LDAP integration
-- [ ] Advanced analytics
-- [ ] Backup and recovery system
+- [ ] Multi-language support (English/Bahasa Malaysia/Chinese)
+- [ ] Single Sign-On (SSO) integration
+- [ ] LDAP/Active Directory integration
+- [ ] Advanced analytics dashboard
+- [ ] Automated backup and recovery system
+- [ ] Integration with INTI student information system
 
 ---
 
@@ -492,6 +827,69 @@ A: 1. Check Apache error logs
    3. Check file permissions
    4. Ensure all dependencies are installed
 ```
+
+---
+
+## 📋 **Version History & Updates**
+
+### 🆕 **V0.2.5 - Multi-Slot Booking System** (June 2024)
+**Major Feature Release: Advanced Booking System**
+
+#### ✨ **New Features**
+- **Multi-Slot Booking**: Users can now book 1 or 2 consecutive time slots
+- **Real-Time Availability**: Live checking with instant visual feedback
+- **Smart Validation**: Automatic consecutive slot validation
+- **Advanced Business Rules**: 
+  - Discussion Rooms: Same-day booking only
+  - Basketball Court: Up to 7 days advance booking
+  - STEM Lab: Up to 1 day advance booking
+- **Comprehensive Booking Management**: Full booking history with filtering
+- **Smart Cancellation**: 30-minute window before start time
+- **Email Notifications**: Confirmation and cancellation emails
+- **Daily Limits**: Maximum 2 bookings per user per day
+
+#### 🛠️ **Technical Improvements**
+- **Database Schema**: Added `facilities` and `bookings` tables
+- **API Endpoints**: New RESTful APIs for booking operations
+- **Frontend Enhancements**: 
+  - Interactive time slot grid with color-coding
+  - Real-time form validation
+  - Responsive design for all devices
+- **Backend Logic**: 
+  - Multi-slot validation algorithms
+  - Conflict detection and prevention
+  - Timezone synchronization (Malaysia UTC+8)
+
+#### 📁 **New Files Added**
+```
+🏢 Booking System Files:
+├── booking.php              # Multi-slot booking interface
+├── process_booking.php      # Booking processing & validation
+├── check_availability.php   # Real-time availability API
+├── my_bookings.php         # Booking management interface
+├── cancel_booking.php      # Booking cancellation handler
+├── css/booking.css         # Booking system styles
+├── js/booking.js          # Multi-slot booking logic
+├── js/my_bookings.js      # Booking management scripts
+├── create_facilities_table.sql  # Facilities database schema
+├── create_bookings_table.sql    # Bookings database schema
+└── BOOKING_SYSTEM_README.md     # Detailed system documentation
+```
+
+#### 🎯 **User Experience Improvements**
+- **Intuitive Interface**: Click to select/deselect time slots
+- **Visual Feedback**: Color-coded availability status
+- **Smart Constraints**: Prevents invalid slot combinations
+- **Instant Validation**: Real-time error checking and messaging
+- **Mobile Responsive**: Full functionality on all device sizes
+
+### **V0.2.0 - Core Authentication System** (May 2024)
+- ✅ Student registration with INTI email validation
+- ✅ OTP email verification system
+- ✅ Secure login/logout functionality
+- ✅ User dashboard and profile management
+- ✅ PHPMailer integration for email services
+- ✅ Responsive Bootstrap 5 UI design
 
 ---
 

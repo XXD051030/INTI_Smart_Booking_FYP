@@ -10,3 +10,6 @@ RewriteRule ^login/$ login.php [L]
 
 RewriteRule ^register$ register.php [L]
 RewriteRule ^register/$ register.php [L]
+
+RewriteRule ^booking$ booking.php [L]
+RewriteRule ^booking/$ booking.php [L]
