@@ -7,6 +7,9 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
     exit;
 }
 
+// Check for messages
+$message = $_GET['message'] ?? '';
+
 // Handle login form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -143,6 +146,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if (isset($error)): ?>
             <div class="alert alert-danger" role="alert">
                 <i class="fas fa-exclamation-circle me-2"></i><?php echo htmlspecialchars($error); ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php if (!empty($message)): ?>
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-info-circle me-2"></i><?php echo htmlspecialchars($message); ?>
             </div>
         <?php endif; ?>
         

@@ -158,6 +158,7 @@ try {
                 <a class="nav-link active" href="#users"><i class="fas fa-users me-2"></i>Users</a>
                 <a class="nav-link" href="#otps"><i class="fas fa-key me-2"></i>OTP Verification</a>
                 <a class="nav-link" href="#stats"><i class="fas fa-chart-bar me-2"></i>Statistics</a>
+                <a class="nav-link" href="bookings.php"><i class="fas fa-calendar-alt me-2"></i>Bookings</a>
                 <div class="ms-auto">
                     <button class="btn btn-warning btn-sm me-2" onclick="bulkDeleteExpiredOTPs()">
                         <i class="fas fa-trash me-1"></i>Clean Expired OTPs

@@ -160,6 +160,116 @@ try {
                 echo json_encode(['success' => false, 'message' => 'User not found']);
             }
             break;
+
+        case 'cancel_booking':
+            $bookingId = $_POST['booking_id'] ?? '';
+            
+            if (empty($bookingId) || !is_numeric($bookingId)) {
+                echo json_encode(['success' => false, 'message' => 'Invalid booking ID']);
+                exit;
+            }
+            
+            try {
+                // Start transaction
+                $pdo->beginTransaction();
+                
+                // Check if booking exists and is confirmed
+                $checkStmt = $pdo->prepare("SELECT * FROM bookings WHERE booking_id = ? AND status = 'confirmed'");
+                $checkStmt->execute([$bookingId]);
+                $booking = $checkStmt->fetch();
+                
+                if (!$booking) {
+                    $pdo->rollback();
+                    echo json_encode(['success' => false, 'message' => 'Booking not found or already cancelled']);
+                    exit;
+                }
+                
+                // Update booking status
+                $updateStmt = $pdo->prepare("
+                    UPDATE bookings 
+                    SET status = 'cancelled', cancelled_at = NOW() 
+                    WHERE booking_id = ?
+                ");
+                $updateStmt->execute([$bookingId]);
+                
+                if ($updateStmt->rowCount() > 0) {
+                    $pdo->commit();
+                    
+                    // Send cancellation email (optional)
+                    try {
+                        require_once '../Mailer.php';
+                        
+                        // Get user and facility details
+                        $detailStmt = $pdo->prepare("
+                            SELECT u.username, u.email, f.name as facility_name, f.location,
+                                   b.booking_date, b.start_time, b.end_time, b.purpose
+                            FROM bookings b
+                            JOIN users u ON b.user_id = u.user_id
+                            JOIN facilities f ON b.facility_id = f.facility_id
+                            WHERE b.booking_id = ?
+                        ");
+                        $detailStmt->execute([$bookingId]);
+                        $details = $detailStmt->fetch();
+                        
+                        if ($details) {
+                            $mailer = new Mailer();
+                            $subject = "Booking Cancelled - {$details['facility_name']}";
+                            
+                            $formatted_date = date('l, F j, Y', strtotime($details['booking_date']));
+                            $formatted_start_time = date('g:i A', strtotime($details['start_time']));
+                            $formatted_end_time = date('g:i A', strtotime($details['end_time']));
+                            
+                            $body = "
+                            <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
+                                <div style='background-color: #dc3545; color: white; padding: 20px; text-align: center;'>
+                                    <h1>Booking Cancelled</h1>
+                                </div>
+                                
+                                <div style='padding: 20px; background-color: #f8f9fa;'>
+                                    <h2>Dear {$details['username']},</h2>
+                                    <p>Your booking has been cancelled by the administrator. Here are the details:</p>
+                                    
+                                    <div style='background-color: white; padding: 20px; border-radius: 8px; margin: 20px 0;'>
+                                        <h3 style='color: #dc3545; margin-top: 0;'>Cancelled Booking Details</h3>
+                                        <p><strong>Booking ID:</strong> #{$bookingId}</p>
+                                        <p><strong>Facility:</strong> {$details['facility_name']}</p>
+                                        <p><strong>Location:</strong> {$details['location']}</p>
+                                        <p><strong>Date:</strong> {$formatted_date}</p>
+                                        <p><strong>Time:</strong> {$formatted_start_time} - {$formatted_end_time}</p>
+                                        <p><strong>Purpose:</strong> {$details['purpose']}</p>
+                                    </div>
+                                    
+                                    <p>If you have any questions about this cancellation, please contact the facility management.</p>
+                                    
+                                    <hr style='margin: 30px 0; border: none; border-top: 1px solid #dee2e6;'>
+                                    
+                                    <p style='color: #6c757d; font-size: 14px;'>
+                                        This is an automated message from INTI Reservation System. Please do not reply to this email.
+                                    </p>
+                                </div>
+                            </div>
+                            ";
+                            
+                            $mailer->sendMail($details['email'], $subject, $body);
+                        }
+                        
+                    } catch (Exception $e) {
+                        error_log("Email error in cancel_booking: " . $e->getMessage());
+                        // Don't fail the cancellation if email fails
+                    }
+                    
+                    echo json_encode(['success' => true, 'message' => 'Booking cancelled successfully']);
+                } else {
+                    $pdo->rollback();
+                    echo json_encode(['success' => false, 'message' => 'Failed to cancel booking']);
+                }
+                
+            } catch (PDOException $e) {
+                $pdo->rollback();
+                error_log("Database error in cancel_booking: " . $e->getMessage());
+                echo json_encode(['success' => false, 'message' => 'Database error occurred']);
+            }
+            break;
             
         default:
             echo json_encode(['success' => false, 'message' => 'Invalid action']);

@@ -634,7 +634,7 @@ GET  /my_bookings.php              # User booking history (with AJAX)
 ### 📝 **Manual Testing Checklist**
 
 #### Registration Flow Test
-```
+   ```
 1. Navigate to /register.php
 2. Enter test data:
    - Email: test@student.newinti.edu.my
@@ -694,7 +694,7 @@ GET  /my_bookings.php              # User booking history (with AJAX)
    - Test booking cancellation (within 30-min window)
    - Verify cancellation email notification
    - Test pagination with multiple bookings
-```
+   ```
 
 ### 🔧 **Automated Testing Commands**
 ```bash
