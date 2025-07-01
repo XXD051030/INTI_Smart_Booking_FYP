@@ -63,8 +63,8 @@ A comprehensive student registration, authentication, and facility booking syste
 ├── 🗄️ **Database Scripts**
 │   ├── create_users_table.sql   # Users table structure
 │   ├── create_otp_table.sql     # OTP table structure
-│   ├── create_facilities_table.sql # Facilities table structure (V0.3.0)
-│   ├── create_bookings_table.sql   # Bookings table structure (V0.3.0)
+│   ├── create_facilities_table.sql # Facilities table structure 🆕
+│   ├── create_bookings_table.sql   # Bookings table structure 🆕
 │   └── check.php               # System health check
 │
 ├── 🎨 **Frontend Assets**
@@ -83,20 +83,11 @@ A comprehensive student registration, authentication, and facility booking syste
 │       ├── place/              # Facility images
 │       └── assets/             # Other resources
 │
-├── 🔧 **Admin Panel** 🆕
-│   ├── admin/
-│   │   ├── index.php          # Admin login page
-│   │   ├── dashboard.php      # Admin main dashboard
-│   │   ├── bookings.php       # Enhanced booking management with smart filtering
-│   │   ├── get_bookings.php   # Booking data API for admin
-│   │   ├── actions.php        # Admin booking actions
-│   │   └── css/
-│   │       └── bookings.css   # Admin booking styles with filter enhancements
-│   
 ├── 📋 **Legal & Documentation**
 │   ├── rules.php              # Terms and conditions
 │   ├── README.md              # Project documentation
-│   └── BOOKING_SYSTEM_README.md # Detailed booking system docs
+│   ├── BOOKING_SYSTEM_README.md # Detailed booking system docs 🆕
+│   └── admin/                 # Admin panel (future)
 ```
 
 ---
@@ -479,23 +470,6 @@ function isConsecutiveSlot(newSlot) {
   - Download booking confirmations
 - **Pagination**: Handle large booking histories efficiently
 
-#### 7. **Admin Dashboard** (`/admin/`) 🆕
-- **Enhanced Booking Management**: Advanced administrative control
-- **Smart Filtering System**:
-  - Visual facility filtering with highlighting
-  - Maintains complete table layout during filtering
-  - Status-based filtering (confirmed/cancelled)
-  - Date range selection for booking data
-- **Optimized Display**:
-  - Clean time table without overwhelming details
-  - Click-to-view detailed booking information
-  - Purpose information available in detailed view modal
-- **Administrative Actions**:
-  - View comprehensive booking statistics
-  - Cancel bookings with admin privileges
-  - Export booking data for reporting
-  - Real-time booking monitoring
-
 ---
 
 ## 🛡️ **Security Features**
@@ -542,13 +516,6 @@ POST /check_availability.php        # Real-time slot availability
 POST /process_booking.php          # Multi-slot booking creation
 POST /cancel_booking.php           # Booking cancellation
 GET  /my_bookings.php              # User booking history (with AJAX)
-```
-
-### Admin Panel APIs 🆕
-```
-GET  /admin/get_bookings.php       # Enhanced admin booking data with smart filtering
-POST /admin/actions.php            # Admin booking management actions
-GET  /admin/bookings.php           # Admin booking dashboard with visual filtering
 ```
 
 #### **API Details**
@@ -770,13 +737,13 @@ php -r "
 
 ## 📈 **Future Development Roadmap**
 
-### 🚀 **Phase 1: Core Authentication** (✅ Completed - V0.2.0)
+### 🚀 **Phase 1: Core Features** (✅ Completed)
 - [x] User registration and authentication
 - [x] Email verification system
 - [x] Responsive UI design
 - [x] Basic security measures
 
-### 🏢 **Phase 2: Booking System** (✅ Completed - V0.3.0)
+### 🏢 **Phase 2: Multi-Slot Booking System** (✅ Completed) 🆕
 - [x] **Multi-slot facility booking (1-2 consecutive hours)**
 - [x] **Real-time availability checking with visual feedback**
 - [x] **Smart consecutive slot validation**
@@ -787,20 +754,14 @@ php -r "
 - [x] **Daily booking limits (max 2 per user)**
 - [x] **Timezone synchronization (Malaysia UTC+8)**
 
-### 🔧 **Phase 3: Admin Dashboard** (✅ Completed - V0.3.1)
-- [x] **Enhanced admin booking management**
-- [x] **Smart visual filtering system**
-- [x] **Optimized display and UI improvements**
-- [x] **Real-time booking monitoring**
-
-### 📊 **Phase 4: Advanced Features** (Planned)
-- [ ] Advanced booking analytics and reporting system
+### 🔧 **Phase 3: Admin & Advanced Features** (✅ Partially Completed)
+- [x] **Admin dashboard for facility management** 🆕
+- [ ] Booking analytics and reporting system
 - [ ] Push notification system
 - [ ] Mobile app development
 - [ ] QR code check-in system
-- [ ] Facility usage statistics and insights
 
-### 🛡️ **Phase 5: Enterprise Features** (Future)
+### 🛡️ **Phase 4: Enterprise Features** (Future)
 - [ ] Multi-language support (English/Bahasa Malaysia/Chinese)
 - [ ] Single Sign-On (SSO) integration
 - [ ] LDAP/Active Directory integration
@@ -890,7 +851,26 @@ A: 1. Check Apache error logs
   - Better visual hierarchy in booking information
   - Improved responsiveness and readability
 
-### **V0.3.0 - Multi-Slot Booking System** (December 2024)
+#### 🛠️ **Technical Improvements V0.3.1**
+- **Admin Interface Optimization**: Enhanced facility filtering without data loss
+- **Frontend Performance**: 
+  - Client-side filtering for better user experience
+  - Visual highlighting system for facility selection
+  - Optimized CSS for better readability
+- **Backend Efficiency**: 
+  - Reduced server requests by handling facility filters in frontend
+  - Maintained full data integrity during filtering operations
+
+#### 📁 **Files Updated**
+```
+🔧 Admin Dashboard Enhancements:
+├── admin/bookings.php           # Enhanced facility filtering logic
+├── admin/get_bookings.php       # Optimized data filtering
+├── admin/css/bookings.css       # New visual filtering styles
+└── README.md                    # Updated documentation
+```
+
+### **V0.3.0 - Multi-Slot Booking System** (2024)
 **Major Feature Release: Advanced Booking System**
 
 #### ✨ **New Features**
@@ -906,17 +886,7 @@ A: 1. Check Apache error logs
 - **Email Notifications**: Confirmation and cancellation emails
 - **Daily Limits**: Maximum 2 bookings per user per day
 
-#### 🛠️ **Technical Improvements V0.3.1**
-- **Admin Interface Optimization**: Enhanced facility filtering without data loss
-- **Frontend Performance**: 
-  - Client-side filtering for better user experience
-  - Visual highlighting system for facility selection
-  - Optimized CSS for better readability
-- **Backend Efficiency**: 
-  - Reduced server requests by handling facility filters in frontend
-  - Maintained full data integrity during filtering operations
-
-#### **Previous Technical Improvements V0.3.0**
+#### 🛠️ **Technical Improvements**
 - **Database Schema**: Added `facilities` and `bookings` tables
 - **API Endpoints**: New RESTful APIs for booking operations
 - **Frontend Enhancements**: 
@@ -929,17 +899,6 @@ A: 1. Check Apache error logs
   - Timezone synchronization (Malaysia UTC+8)
 
 #### 📁 **New Files Added**
-
-**V0.3.1 - Admin Dashboard Files:**
-```
-🔧 Admin Panel:
-├── admin/bookings.php       # Enhanced booking management
-├── admin/get_bookings.php   # Smart filtering API
-├── admin/css/bookings.css   # Optimized admin styles
-└── Updated filtering logic   # Client-side performance improvements
-```
-
-**V0.3.0 - Booking System Files:**
 ```
 🏢 Booking System Files:
 ├── booking.php              # Multi-slot booking interface
@@ -963,22 +922,12 @@ A: 1. Check Apache error logs
 - **Mobile Responsive**: Full functionality on all device sizes
 
 ### **V0.2.0 - Core Authentication System** (May 2024)
-**Foundation Release: User Management & Authentication**
-
-#### ✨ **Core Features**
-- ✅ **Student Registration**: INTI email validation system
-- ✅ **Email Verification**: OTP-based account activation
-- ✅ **Secure Authentication**: Login/logout with session management
-- ✅ **User Dashboard**: Personal profile and account management
-- ✅ **Email Integration**: PHPMailer for automated communications
-- ✅ **Modern UI**: Responsive Bootstrap 5 design
-
-#### 🛠️ **Technical Foundation**
-- **Database Schema**: Core `users` and `user_otp` tables
-- **Security Implementation**: BCrypt password hashing, CSRF protection
-- **Email System**: SMTP configuration with Gmail integration
-- **Frontend Framework**: Bootstrap 5 with custom CSS animations
-- **Validation System**: Real-time form validation with jQuery
+- ✅ Student registration with INTI email validation
+- ✅ OTP email verification system
+- ✅ Secure login/logout functionality
+- ✅ User dashboard and profile management
+- ✅ PHPMailer integration for email services
+- ✅ Responsive Bootstrap 5 UI design
 
 ---
 
