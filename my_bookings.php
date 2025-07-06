@@ -113,6 +113,7 @@ function formatTimeForDisplay($time) {
 function formatDateForDisplay($date) {
     return date('l, F j, Y', strtotime($date));
 }
+include "includes/lang_loader.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -155,42 +156,42 @@ function formatDateForDisplay($date) {
         
         <div class="row g-0">
             <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 sidebar">
+           <div class="col-md-3 col-lg-2 sidebar">
                 <div class="nav flex-column">
                     <div class="nav-item">
                         <a class="nav-link" href="general.php">
-                            <i class="fas fa-home"></i> General
+                            <i class="fas fa-home"></i> <?php echo $text['general']; ?>
                         </a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="far fa-calendar"></i> Calendar
+                            <i class="far fa-calendar"></i> <?php echo $text['calendar']; ?>
                         </a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link" href="booking.php">
-                            <i class="fas fa-book"></i> Booking
+                            <i class="fas fa-book"></i> <?php echo $text['booking']; ?>
                         </a>
                     </div>
                     <div class="nav-item active">
                         <a class="nav-link" href="my_bookings.php">
-                            <i class="fas fa-history"></i> My Bookings
+                            <i class="fas fa-book"></i> <?php echo $text['mybk']; ?>
                         </a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fas fa-bell"></i> Notification
+                            <i class="fas fa-bell"></i> <?php echo $text['notification']; ?>
                             <span class="notification-badge">1</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-cog"></i> Settings
+                        <a class="nav-link" href="setting.php">
+                            <i class="fas fa-cog"></i> <?php echo $text['settings']; ?>
                         </a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link" href="rules.php">
-                            <i class="fas fa-file-alt"></i> Rules and Regulations
+                            <i class="fas fa-file-alt"></i> <?php echo $text['rules']; ?>
                         </a>
                     </div>
                 </div>

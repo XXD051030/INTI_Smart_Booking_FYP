@@ -2,12 +2,12 @@
 
 include "includes/lang_loader.php";
 
-if (!isset($_SESSION['username'])) {
-    $_SESSION['username'] = '张三';
+//rules
+// Check if admin is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
 }
-
-$username = $_SESSION['username'];
-$user_initial = mb_substr($username, 0, 1);
 ?>
 
 
@@ -130,7 +130,7 @@ $user_initial = mb_substr($username, 0, 1);
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="my_booking.php">
+                        <a class="nav-link" href="my_bookings.php">
                             <i class="fas fa-book"></i> <?php echo $text['mybk']; ?>
                         </a>
                     </div>

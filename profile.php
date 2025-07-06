@@ -1,4 +1,34 @@
-<?php 
+<?php
+session_start();
+require_once 'db.php';
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login');
+    exit;
+}
+
+// Get user information from database
+try {
+    $stmt = $pdo->prepare("SELECT username, email FROM users WHERE user_id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch();
+    
+    if (!$user) {
+        // User not found in database, logout
+        session_destroy();
+        header('Location: login.php');
+        exit;
+    }
+    
+    $username = htmlspecialchars($user['username']);
+    $email = htmlspecialchars($user['email']);
+    $user_initial = strtoupper(substr($username, 0, 1));
+} catch (PDOException $e) {
+    // Database error, redirect to login
+    header('Location: login.php');
+    exit;
+}
 include "includes/lang_loader.php"; 
 ?>
 <!DOCTYPE html>
@@ -160,7 +190,7 @@ include "includes/lang_loader.php";
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="my_booking.php">
+                        <a class="nav-link" href="my_bookings.php">
                             <i class="fas fa-book"></i> <?php echo $text['mybk']; ?>
                         </a>
                     </div>

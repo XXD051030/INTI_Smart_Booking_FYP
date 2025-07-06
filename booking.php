@@ -97,7 +97,7 @@ include "includes/lang_loader.php";
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="my_booking.php">
+                        <a class="nav-link" href="my_bookings.php">
                             <i class="fas fa-book"></i> <?php echo $text['mybk']; ?>
                         </a>
                     </div>
