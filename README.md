@@ -832,7 +832,86 @@ A: 1. Check Apache error logs
 
 ## 📋 **Version History & Updates**
 
-### 🆕 **V0.3.1 - Enhanced Admin Dashboard** (January 2025)
+### 🆕 **V0.3.3 - Multiple Language Support** (January 2025)
+**Internationalization & Language Selection**
+
+#### ✨ **New Features**
+- **Multi-Language Support**: Added support for multiple languages throughout the system
+- **Language Settings**: New language selector in user settings page
+- **Dynamic Text Translation**: Real-time language switching without page reload
+- **Comprehensive Translation**: All user-facing text translated including:
+  - Navigation menus and buttons
+  - Form labels and placeholders
+  - Error messages and notifications
+  - System messages and confirmations
+- **Persistent Language Preference**: User language choice saved and remembered across sessions
+
+#### 🌍 **Supported Languages**
+- **English**: Default system language
+- **Bahasa Malaysia**: Complete Malaysian translation
+- **Chinese (Simplified)**: Full Chinese language support
+
+#### 🛠️ **Technical Implementation**
+- **Language Framework**: Custom PHP language loading system
+- **Translation Files**: Organized language files for easy maintenance
+- **Session Management**: Language preference stored in user sessions
+- **Frontend Integration**: JavaScript-based dynamic language switching
+
+#### 📁 **Files Added/Updated**
+```
+🌍 Language Support Files:
+├── includes/lang_loader.php     # Language loading system
+├── languages/en.php             # English translations
+├── languages/ms.php             # Bahasa Malaysia translations  
+├── languages/zh.php             # Chinese translations
+├── setting.php                  # Enhanced with language selector
+└── js/language-switcher.js      # Dynamic language switching
+```
+
+### 🆕 **V0.3.2 - Red Color Theme** (January 2025)
+**Visual Design & Branding Update**
+
+#### ✨ **Design Changes**
+- **Complete Color Theme Overhaul**: Migrated from blue theme to professional red branding
+- **Consistent Red Branding**: Applied `rgb(246, 31, 31)` across entire system
+- **Enhanced Visual Identity**: Modern red gradient designs with improved accessibility
+- **Professional Appearance**: Sophisticated color palette for institutional use
+
+#### 🎨 **Updated Components**
+- **User Interface Pages**:
+  - Login page background and form elements
+  - Registration page theme and buttons
+  - User dashboard and booking interface
+  - Settings and profile pages
+- **Admin Panel**:
+  - Admin login page styling
+  - Dashboard statistics and cards
+  - Booking management interface
+  - Navigation and menu elements
+- **Interactive Elements**:
+  - Buttons and hover states
+  - Form focus indicators
+  - Progress indicators and badges
+  - Modal dialogs and alerts
+
+#### 🛠️ **Technical Updates**
+- **CSS Framework**: Updated all primary color variables
+- **Bootstrap Override**: Custom CSS to override default blue theme
+- **Cross-Platform Consistency**: Uniform appearance across all browsers
+- **Responsive Design**: Maintained mobile-friendly design with new colors
+
+#### 📁 **Files Updated**
+```
+🎨 Theme Update Files:
+├── css/style.css                # Main system colors
+├── css/login.css               # Login page theme
+├── css/booking.css             # Booking interface colors
+├── admin/css/bookings.css      # Admin panel styling
+├── admin/index.php             # Admin login page
+└── admin/dashboard.php         # Admin dashboard colors
+```
+
+### **V0.3.1 - Enhanced Admin Dashboard** (January 2025)
 **Admin Experience & UI Improvements**
 
 #### ✨ **New Features**
@@ -970,19 +1049,20 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**📝 Version**: 0.3.1
-**📅 Last Updated**: January 2025  
+**📝 Version**: 0.3.4
+**📅 Last Updated**: July 2025  
 **👨‍💻 Developer**: Zhi Yang  
 **🏢 Organization**: INTI International College 
 **📧 Support**: xxd051030@gmail.com
 
 ---
 
-## 🎯 **Recent Updates Summary (V0.3.1)**
+## 🎯 **Recent Updates Summary (V0.3.3)**
 
-### Admin Dashboard Enhancements
-✅ **Enhanced Facility Filtering**: Smart visual filtering that maintains full table view  
-✅ **UI Optimization**: Removed purpose column from time table for cleaner display  
-✅ **Better UX**: Facility highlighting with semi-transparent non-selected items  
-✅ **Performance**: Client-side filtering reduces server load  
-✅ **Accessibility**: Maintained complete table structure during filtering operations
+### Multiple Language Support & Red Theme
+✅ **Multi-Language System**: Complete internationalization with English, Bahasa Malaysia, and Chinese support  
+✅ **Language Settings**: Dynamic language switching in user settings page  
+✅ **Red Color Theme**: Professional red branding across entire system `rgb(246, 31, 31)`  
+✅ **Consistent Design**: Unified color scheme for user interface and admin panel  
+✅ **Enhanced UX**: Improved visual identity with modern red gradient designs  
+✅ **Cross-Platform**: Responsive design maintained with new color theme
