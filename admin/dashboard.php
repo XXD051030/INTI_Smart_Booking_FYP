@@ -83,7 +83,7 @@ try {
         }
         
         .stats-card.users { border-left-color: #28a745; }
-        .stats-card.verified { border-left-color: #007bff; }
+        .stats-card.verified { border-left-color: rgb(246, 31, 31); }
         .stats-card.unverified { border-left-color: #ffc107; }
         .stats-card.otps { border-left-color: #dc3545; }
         
@@ -96,7 +96,7 @@ try {
         }
         
         .table-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgb(246, 31, 31) 0%, rgb(212, 26, 26) 100%);
             color: white;
             padding: 1rem 1.5rem;
             margin: 0;
