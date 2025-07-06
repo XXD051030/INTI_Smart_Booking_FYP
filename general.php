@@ -125,19 +125,6 @@ try {
                     </div>
                 </div>
                 
-                <!-- Reservation Alert -->
-                <div class="alert-reservation d-flex align-items-center">
-                    <div class="clock-icon">
-                        <i class="far fa-clock"></i>
-                    </div>
-                    <div class="flex-grow-1">
-                        <h5 class="mb-2">You have Room 3 reserved at 2PM today.</h5>
-                        <div>
-                            <button class="btn btn-outline-primary me-2">View Details</button>
-                            <button class="btn btn-danger">Cancel</button>
-                        </div>
-                    </div>
-                </div>
                 
                 <!-- Places Section -->
                 <div class="row mt-4">

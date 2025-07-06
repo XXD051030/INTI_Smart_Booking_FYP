@@ -6,7 +6,7 @@ body {
 
 /* Header Styles */
 .admin-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #de1569 0%, #764ba2 100%);
     color: white;
     padding: 1rem 0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -167,7 +167,8 @@ body {
 }
 
 .booking-cell.confirmed .booking-info {
-    background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+    background: linear-gradient(135deg, #e8f5e8 0%, #d4ed
+     100%);
     border: 2px solid #28a745;
 }
 

@@ -18,7 +18,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgb(246, 31, 31);
             padding: 20px;
             position: relative;
             overflow: hidden;
@@ -55,7 +55,7 @@
 
         .left-section {
             flex: 1;
-            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            background: linear-gradient(135deg, rgb(246, 31, 31) 0%, rgb(212, 26, 26) 100%);
             padding: 40px;
             color: white;
             display: flex;
@@ -118,7 +118,7 @@
         .form-title {
             text-align: left;
             margin-bottom: 2rem;
-            color: #1a73e8;
+            color: rgb(246, 31, 31);
             font-size: 28px;
             font-weight: 600;
         }
@@ -140,9 +140,9 @@
         }
 
         .input:focus {
-            border-color: #1a73e8;
+            border-color: rgb(246, 31, 31);
             background: white;
-            box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
+            box-shadow: 0 0 0 4px rgba(246, 31, 31, 0.1);
         }
 
         .input-container label {
@@ -161,7 +161,7 @@
         .input:not(:placeholder-shown) + label {
             top: 0;
             font-size: 12px;
-            color: #1a73e8;
+            color: rgb(246, 31, 31);
             background: white;
         }
 
@@ -201,7 +201,7 @@
             width: 20px;
             height: 20px;
             cursor: pointer;
-            accent-color: #1a73e8;
+            accent-color: rgb(246, 31, 31);
         }
 
         .terms-container label {
@@ -211,7 +211,7 @@
         }
 
         .terms-container a {
-            color: #1a73e8;
+            color: rgb(246, 31, 31);
             text-decoration: none;
         }
 
@@ -222,7 +222,7 @@
         #submit_btn {
             width: 100%;
             padding: 15px;
-            background: #1a73e8;
+            background: rgb(246, 31, 31);
             color: white;
             border: none;
             border-radius: 10px;
@@ -236,9 +236,9 @@
         }
 
         #submit_btn:hover {
-            background: #1557b0;
+            background: rgb(212, 26, 26);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.2);
+            box-shadow: 0 4px 12px rgba(246, 31, 31, 0.2);
         }
 
         #submit_btn:disabled {
@@ -255,7 +255,7 @@
         }
 
         .login-link a {
-            color: #1a73e8;
+            color: rgb(246, 31, 31);
             text-decoration: none;
             font-weight: 500;
         }
