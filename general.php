@@ -29,6 +29,7 @@ try {
     header('Location: login.php');
     exit;
 }
+include "includes/lang_loader.php"; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +62,7 @@ try {
                     </div>
                     <span class="ms-2 me-3"><?php echo $username; ?></span>
                     <a href="logout.php" class="btn btn-outline-danger btn-sm">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                        <i class="fas fa-sign-out-alt"></i> <?php echo $text['logout']; ?>
                     </a>
                 </div>
             </div>
@@ -73,38 +74,38 @@ try {
                 <div class="nav flex-column">
                     <div class="nav-item active">
                         <a class="nav-link" href="general.php">
-                            <i class="fas fa-home"></i> General
+                            <i class="fas fa-home"></i> <?php echo $text['general']; ?>
                         </a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="far fa-calendar"></i> Calendar
+                            <i class="far fa-calendar"></i> <?php echo $text['calendar']; ?>
                         </a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link" href="booking.php">
-                            <i class="fas fa-book"></i> Booking
+                            <i class="fas fa-book"></i> <?php echo $text['booking']; ?>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="my_bookings.php">
-                            <i class="fas fa-history"></i> My Bookings
+                        <a class="nav-link" href="my_booking.php">
+                            <i class="fas fa-book"></i> <?php echo $text['mybk']; ?>
                         </a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fas fa-bell"></i> Notification
+                            <i class="fas fa-bell"></i> <?php echo $text['notification']; ?>
                             <span class="notification-badge">1</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-cog"></i> Settings
+                        <a class="nav-link" href="setting.php">
+                            <i class="fas fa-cog"></i> <?php echo $text['settings']; ?>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-file-alt"></i> Rules and Regulations
+                        <a class="nav-link" href="rules.php">
+                            <i class="fas fa-file-alt"></i> <?php echo $text['rules']; ?>
                         </a>
                     </div>
                 </div>
@@ -119,12 +120,25 @@ try {
                     </div>
                     <div>
                         <h3><?php echo $username; ?></h3>
-                        <p class="mb-1">Email: <?php echo $email; ?></p>
-                        <p class="mb-1">Status: No appointment</p>
-                        <p class="mb-0">Credit: <span class="text-success">Good <img src="images/assets/green_tick.png" alt="Good" width="20"></span></p>
+                        <p class="mb-1"><?php echo $text['email']; ?> <?php echo $email; ?></p>
+                        <p class="mb-1"><?php echo $text['status']; ?>: No appointment</p>
+                        <p class="mb-0"><?php echo $text['credit']; ?> <span class="text-success">Good <img src="images/assets/green_tick.png" alt="Good" width="20"></span></p>
                     </div>
                 </div>
                 
+                <!-- Reservation Alert -->
+                <div class="alert-reservation d-flex align-items-center">
+                    <div class="clock-icon">
+                        <i class="far fa-clock"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="mb-2">You have Room 3 reserved at 2PM today.</h5>
+                        <div>
+                            <button class="btn btn-outline-primary me-2"><?php echo $text['view']; ?></button>
+                            <button class="btn btn-danger"><?php echo $text['cancel']; ?></button>
+                        </div>
+                    </div>
+                </div>
                 
                 <!-- Places Section -->
                 <div class="row mt-4">
@@ -132,9 +146,9 @@ try {
                         <div class="place-card card">
                             <img src="images/place/discussion_room.jpg" alt="Discussion Room">
                             <div class="content">
-                                <h3>Discussion Room</h3>
-                                <a href="booking.php" class="btn-book">
-                                    <i class="fas fa-plus me-1"></i> Book Now
+                                <h3><?php echo $text['discussionroom']; ?></h3>
+                                <a href="bookings.php" class="btn-book">
+                                    <i class="fas fa-plus me-1"></i> <?php echo $text['book']; ?>
                                 </a>
                             </div>
                         </div>
@@ -143,9 +157,9 @@ try {
                         <div class="place-card card">
                             <img src="images/place/basketball_court.jpg" alt="Sport Facilities">
                             <div class="content">
-                                <h3>Sport Facilities</h3>
-                                <a href="booking.php" class="btn-book">
-                                    <i class="fas fa-plus me-1"></i> Book Now
+                                <h3><?php echo $text['sport']; ?></h3>
+                                <a href="bookings.php" class="btn-book">
+                                    <i class="fas fa-plus me-1"></i> <?php echo $text['book']; ?>
                                 </a>
                             </div>
                         </div>
@@ -157,9 +171,9 @@ try {
                         <div class="place-card card">
                             <img src="images/place/stem_lab.jpg" alt="STEM Lab">
                             <div class="content">
-                                <h3>STEM Lab</h3>
-                                <a href="booking.php" class="btn-book">
-                                    <i class="fas fa-plus me-1"></i> Book Now
+                                <h3><?php echo $text['stem']; ?></h3>
+                                <a href="bookings.php" class="btn-book">
+                                    <i class="fas fa-plus me-1"></i> <?php echo $text['book']; ?>
                                 </a>
                             </div>
                         </div>

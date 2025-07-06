@@ -1,12 +1,15 @@
 <?php
-session_start();
 
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login');
-    exit;
+include "includes/lang_loader.php";
+
+if (!isset($_SESSION['username'])) {
+    $_SESSION['username'] = '张三';
 }
+
+$username = $_SESSION['username'];
+$user_initial = mb_substr($username, 0, 1);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,14 +20,13 @@ if (!isset($_SESSION['user_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        body {
+         body {
             background-color: #f8f9fa;
             font-family: 'Roboto', sans-serif;
         }
         .main-content {
-            margin-left: 260px;
             padding: 2rem;
         }
         .rules-card {
@@ -85,96 +87,117 @@ if (!isset($_SESSION['user_id'])) {
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar position-fixed">
-        <img src="../images/logo/inti_logo.png" alt="INTI Logo" class="logo">
-        <div class="nav flex-column">
-            <div class="nav-item">
-                <a class="nav-link" href="dashboard.php">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard
-                </a>
+    <div class="container-fluid p-0">
+        <div class="header">
+            <div class="d-flex align-items-center">
+                <img src="images/logo/inti_logo.png" alt="INTI Logo" height="40">
+                <h2 class="ms-3 mb-0">Reservation Dashboard</h2>
             </div>
-            <div class="nav-item active">
-                <a class="nav-link" href="rules_regulations.php">
-                    <i class="fas fa-book"></i> Rules & Regulations
-                </a>
-            </div>
-            <div class="nav-item">
-                <a class="nav-link" href="users.php">
-                    <i class="fas fa-users"></i> Users
-                </a>
-            </div>
-            <div class="nav-item">
-                <a class="nav-link" href="otps.php">
-                    <i class="fas fa-key"></i> OTP Verification
-                </a>
-            </div>
-            <div class="nav-item">
-                <a class="nav-link" href="logout.php">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
+            <div class="d-flex align-items-center">
+                <div class="position-relative me-3">
+                    <i class="fas fa-bell fs-4"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    </span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                        <span><?php echo $user_initial; ?></span>
+                    </div>
+                    <span class="ms-2 me-3"><?php echo $username; ?></span>
+                    <a href="logout.php" class="btn btn-outline-danger btn-sm">
+                        <i class="fas fa-sign-out-alt"></i> <?php echo $text['logout']; ?>
+                    </a>
+                </div> 
             </div>
         </div>
-    </div>
-
-    <!-- Admin Header -->
-    <div class="header">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <h3 class="mb-0">Rules and Regulations</h3>
-                <div class="d-flex align-items-center">
-                    <span class="me-3">Welcome, <?php echo htmlspecialchars($_SESSION['admin_username']); ?></span>
-                    <a href="logout.php" class="btn btn-outline-primary">
-                        <i class="fas fa-sign-out-alt me-2"></i>Logout
-                    </a>
+    <div class="row g-0">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar">
+                <div class="nav flex-column">
+                    <div class="nav-item">
+                        <a class="nav-link" href="general.php">
+                            <i class="fas fa-home"></i> <?php echo $text['general']; ?>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="far fa-calendar"></i> <?php echo $text['calendar']; ?>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="booking.php">
+                            <i class="fas fa-book"></i> <?php echo $text['booking']; ?>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="my_booking.php">
+                            <i class="fas fa-book"></i> <?php echo $text['mybk']; ?>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-bell"></i> <?php echo $text['notification']; ?>
+                            <span class="notification-badge">1</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="setting.php">
+                            <i class="fas fa-cog"></i> <?php echo $text['settings']; ?>
+                        </a>
+                    </div>
+                    <div class="nav-item active">
+                        <a class="nav-link" href="rules.php">
+                            <i class="fas fa-file-alt"></i> <?php echo $text['rules']; ?>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
+    
+    
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 p-4 main-content">
         <div class="rules-card">
             <div class="rule-header">
                 <h4 class="mb-0"><i class="fas fa-book me-2"></i>Reservation System Rules & Regulations</h4>
             </div>
             <ul class="rules-list">
-                <li><i class="fas fa-check-circle"></i><strong>1. Booking Eligibility</strong>
+                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub1']; ?></strong>
                     <ul>
-                        <li>Only registered INTI students and staff are allowed to use the booking system.</li>
+                        <li><?php echo $text['text1']; ?></li>
                     </ul>
                 </li>
-                <li><i class="fas fa-check-circle"></i><strong>2. Booking Time Limits</strong>
+                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub2']; ?></strong>
                     <ul>
-                        <li>Each booking session is limited to a maximum of 2 hours.</li>
-                        <li>Users are allowed to make up to 2 bookings per day.</li>
-                        <li>Bookings can be made up to 3 days in advance.</li>
+                        <li><?php echo $text['text2.1']; ?></li>
+                        <li><?php echo $text['text2.2']; ?></li>
+                        <li><?php echo $text['text2.3']; ?></li>
                     </ul>
                 </li>
-                <li><i class="fas fa-check-circle"></i><strong>3. Check-in Policy</strong>
+                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub3']; ?></strong>
                     <ul>
-                        <li>Users must check in within 15 minutes after the booking start time. Failure to check in will result in automatic cancellation of the booking.</li>
+                        <li><?php echo $text['text3']; ?></li>
                     </ul>
                 </li>
-                <li><i class="fas fa-check-circle"></i><strong>4. Cancellation Policy</strong>
+                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub4']; ?>y</strong>
                     <ul>
-                        <li>Cancellations must be made at least 15 minutes before the scheduled time.</li>
-                        <li>Users who fail to show up 3 times or more may have their booking privileges temporarily suspended.</li>
+                        <li><?php echo $text['text4.1']; ?></li>
+                        <li><?php echo $text['text4.2']; ?></li>
                     </ul>
                 </li>
-                <li><i class="fas fa-check-circle"></i><strong>5. Code of Conduct</strong>
+                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub5']; ?></strong>
                     <ul>
-                        <li>Users must maintain cleanliness and respect the facility rules.</li>
-                        <li>Loud behavior, misuse of space, or any form of disturbance is strictly prohibited.</li>
-                        <li>Any damage caused to the facilities will be the responsibility of the user.</li>
+                        <li><?php echo $text['text5.1']; ?></li>
+                        <li><?php echo $text['text5.2']; ?></li>
+                        <li><?php echo $text['text5.3']; ?></li>
                     </ul>
                 </li>
-                <li><i class="fas fa-check-circle"></i><strong>6. Admin Rights</strong>
+                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub6']; ?></strong>
                     <ul>
-                        <li>The admin has the right to override, cancel or block any booking if necessary (e.g., for maintenance or misuse).</li>
+                        <li><?php echo $text['text6']; ?></li>
                     </ul>
                 </li>
             </ul>
+          </div>
         </div>
     </div>
 
