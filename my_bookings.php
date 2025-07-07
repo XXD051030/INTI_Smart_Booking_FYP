@@ -164,7 +164,7 @@ include "includes/lang_loader.php";
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="calendar.php">
                             <i class="far fa-calendar"></i> <?php echo $text['calendar']; ?>
                         </a>
                     </div>
