@@ -1,4 +1,34 @@
 <?php
+session_start();
+require_once 'db.php';
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login');
+    exit;
+}
+
+// Get user information from database
+try {
+    $stmt = $pdo->prepare("SELECT username, email FROM users WHERE user_id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch();
+    
+    if (!$user) {
+        // User not found in database, logout
+        session_destroy();
+        header('Location: login.php');
+        exit;
+    }
+    
+    $username = htmlspecialchars($user['username']);
+    $email = htmlspecialchars($user['email']);
+    $user_initial = strtoupper(substr($username, 0, 1));
+} catch (PDOException $e) {
+    // Database error, redirect to login
+    header('Location: login.php');
+    exit;
+}
 include "includes/lang_loader.php";
 ?>
 <!DOCTYPE html>
@@ -31,13 +61,16 @@ include "includes/lang_loader.php";
         }
         @media (max-width: 768px) {
             .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
+            width: 100%;
+            height: auto;
+            position: relative;
             }
             .main-content {
-                padding-top: 60px;
+            padding-top: 60px;
             }
+        }
+        .fc .fc-col-header-cell {
+            color: rgb(246, 31, 31);
         }
     </style>
 </head>
@@ -104,7 +137,7 @@ include "includes/lang_loader.php";
 
             <!-- Main Content -->
             <div class="col-md-9 col-lg-10 main-content">
-                <h3 class="mb-4"><i class="far fa-calendar me-2"></i>Reservation Calendar</h3>
+                <h3 class="mb-4"><i class="far fa-calendar me-2"></i>Calendar</h3>
                 <div id='calendar'></div>
             </div>
         </div>

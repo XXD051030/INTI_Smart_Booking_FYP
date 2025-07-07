@@ -134,7 +134,7 @@ include "includes/lang_loader.php";
                             <img src="images/place/discussion_room.jpg" alt="Discussion Room">
                             <div class="content">
                                 <h3><?php echo $text['discussionroom']; ?></h3>
-                                <a href="bookings.php" class="btn-book">
+                                <a href="booking.php" class="btn-book">
                                     <i class="fas fa-plus me-1"></i> <?php echo $text['book']; ?>
                                 </a>
                             </div>
@@ -145,7 +145,7 @@ include "includes/lang_loader.php";
                             <img src="images/place/basketball_court.jpg" alt="Sport Facilities">
                             <div class="content">
                                 <h3><?php echo $text['sport']; ?></h3>
-                                <a href="bookings.php" class="btn-book">
+                                <a href="booking.php" class="btn-book">
                                     <i class="fas fa-plus me-1"></i> <?php echo $text['book']; ?>
                                 </a>
                             </div>
@@ -159,7 +159,7 @@ include "includes/lang_loader.php";
                             <img src="images/place/stem_lab.jpg" alt="STEM Lab">
                             <div class="content">
                                 <h3><?php echo $text['stem']; ?></h3>
-                                <a href="bookings.php" class="btn-book">
+                                <a href="booking.php" class="btn-book">
                                     <i class="fas fa-plus me-1"></i> <?php echo $text['book']; ?>
                                 </a>
                             </div>

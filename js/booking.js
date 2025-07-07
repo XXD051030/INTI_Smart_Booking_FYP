@@ -659,3 +659,32 @@ window.BookingSystem = {
     canCancelBooking,
     showAlert
 }; 
+
+function loadBookedSlots(facilityId, selectedDate) {
+  fetch(`get_facility_bookings.php?facility_id=${facilityId}`)
+    .then(response => response.json())
+    .then(bookings => {
+      // 清空之前标记
+      document.querySelectorAll('.time-slot').forEach(slot => {
+        slot.classList.remove('booked');
+      });
+
+      // 遍历所有 booking，看是否跟选的日期相同
+      bookings.forEach(b => {
+        const bookingDate = b.start.split('T')[0];
+        if (bookingDate === selectedDate) {
+          const startTime = b.start.split('T')[1].slice(0,5);
+          const endTime = b.end.split('T')[1].slice(0,5);
+
+          // 你要根据你的时间 slot 的 id 或 data-time，来把它设为 booked
+          document.querySelectorAll('.time-slot').forEach(slot => {
+            const slotTime = slot.getAttribute('data-time');
+            if (slotTime >= startTime && slotTime < endTime) {
+              slot.classList.add('booked');
+              slot.classList.remove('available');
+            }
+          });
+        }
+      });
+    });
+}

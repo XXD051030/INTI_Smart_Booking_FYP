@@ -231,7 +231,7 @@ include "includes/lang_loader.php";
                     </div>
                     <hr />
 
-                    <div class="setting-box" onclick="window.location.href='security.php'" style="cursor:pointer;">
+                    <div class="setting-box" onclick="window.location.href='support.php'" style="cursor:pointer;">
                         <h5><i class="fas fa-question icon"></i>
                         <span>&nbsp;<?php echo $text['Sup']; ?></span></h5>
                     </div>
