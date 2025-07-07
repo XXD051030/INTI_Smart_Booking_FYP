@@ -148,7 +148,7 @@ include "includes/lang_loader.php";
                     </div>
                     <span class="ms-2 me-3"><?php echo $username; ?></span>
                     <a href="logout.php" class="btn btn-outline-danger btn-sm">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                        <i class="fas fa-sign-out-alt"></i> <?php echo $text['logout']; ?>
                     </a>
                 </div>
             </div>
@@ -208,7 +208,7 @@ include "includes/lang_loader.php";
                         <div class="card text-center">
                             <div class="card-body">
                                 <i class="fas fa-calendar-check text-primary fs-2 mb-2"></i>
-                                <h5 class="card-title">Total Bookings</h5>
+                                <h5 class="card-title"><?php echo $text['Totalbk']; ?></h5>
                                 <h3 class="text-primary"><?php echo $total_bookings; ?></h3>
                             </div>
                         </div>
@@ -217,7 +217,7 @@ include "includes/lang_loader.php";
                         <div class="card text-center">
                             <div class="card-body">
                                 <i class="fas fa-clock text-warning fs-2 mb-2"></i>
-                                <h5 class="card-title">Upcoming</h5>
+                                <h5 class="card-title"><?php echo $text['upcom']; ?></h5>
                                 <h3 class="text-warning">
                                     <?php
                                     $upcoming_count = 0;
@@ -236,7 +236,7 @@ include "includes/lang_loader.php";
                         <div class="card text-center">
                             <div class="card-body">
                                 <i class="fas fa-check-circle text-success fs-2 mb-2"></i>
-                                <h5 class="card-title">Completed</h5>
+                                <h5 class="card-title"><?php echo $text['com']; ?></h5>
                                 <h3 class="text-success">
                                     <?php
                                     $completed_count = 0;
@@ -255,7 +255,7 @@ include "includes/lang_loader.php";
                         <div class="card text-center">
                             <div class="card-body">
                                 <i class="fas fa-times-circle text-danger fs-2 mb-2"></i>
-                                <h5 class="card-title">Cancelled</h5>
+                                <h5 class="card-title"><?php echo $text['can']; ?></h5>
                                 <h3 class="text-danger">
                                     <?php
                                     $cancelled_count = 0;
@@ -276,32 +276,32 @@ include "includes/lang_loader.php";
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <i class="fas fa-filter me-2"></i>Filter Bookings
+                            <i class="fas fa-filter me-2"></i><?php echo $text['filtterbk']; ?>
                         </h5>
                         <form method="GET" action="" class="row g-3">
                             <div class="col-md-4">
-                                <label for="status" class="form-label">Status</label>
+                                <label for="status" class="form-label"><?php echo $text['Status1']; ?></label>
                                 <select class="form-select" id="status" name="status">
-                                    <option value="all" <?php echo $status_filter === 'all' ? 'selected' : ''; ?>>All Status</option>
-                                    <option value="confirmed" <?php echo $status_filter === 'confirmed' ? 'selected' : ''; ?>>Confirmed</option>
-                                    <option value="cancelled" <?php echo $status_filter === 'cancelled' ? 'selected' : ''; ?>>Cancelled</option>
+                                    <option value="all" <?php echo $status_filter === 'all' ? 'selected' : ''; ?>><?php echo $text['allsta']; ?></option>
+                                    <option value="confirmed" <?php echo $status_filter === 'confirmed' ? 'selected' : ''; ?>><?php echo $text['con']; ?></option>
+                                    <option value="cancelled" <?php echo $status_filter === 'cancelled' ? 'selected' : ''; ?>><?php echo $text['can']; ?></option>
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="date" class="form-label">Date Range</label>
+                                <label for="date" class="form-label"><?php echo $text['data']; ?></label>
                                 <select class="form-select" id="date" name="date">
-                                    <option value="all" <?php echo $date_filter === 'all' ? 'selected' : ''; ?>>All Dates</option>
-                                    <option value="today" <?php echo $date_filter === 'today' ? 'selected' : ''; ?>>Today</option>
-                                    <option value="upcoming" <?php echo $date_filter === 'upcoming' ? 'selected' : ''; ?>>Upcoming</option>
-                                    <option value="past" <?php echo $date_filter === 'past' ? 'selected' : ''; ?>>Past</option>
+                                    <option value="all" <?php echo $date_filter === 'all' ? 'selected' : ''; ?>><?php echo $text['alldate']; ?></option>
+                                    <option value="today" <?php echo $date_filter === 'today' ? 'selected' : ''; ?>><?php echo $text['today']; ?></option>
+                                    <option value="upcoming" <?php echo $date_filter === 'upcoming' ? 'selected' : ''; ?>><?php echo $text['upcom']; ?></option>
+                                    <option value="past" <?php echo $date_filter === 'past' ? 'selected' : ''; ?>><?php echo $text['past']; ?></option>
                                 </select>
                             </div>
                             <div class="col-md-4 d-flex align-items-end">
                                 <button type="submit" class="btn btn-primary me-2">
-                                    <i class="fas fa-search"></i> Apply Filters
+                                    <i class="fas fa-search"></i> <?php echo $text['apply']; ?>
                                 </button>
                                 <a href="my_bookings.php" class="btn btn-outline-secondary">
-                                    <i class="fas fa-undo"></i> Reset
+                                    <i class="fas fa-undo"></i> <?php echo $text['reset']; ?>
                                 </a>
                             </div>
                         </form>
@@ -311,11 +311,11 @@ include "includes/lang_loader.php";
                 <!-- Quick Actions -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h4>
-                        <i class="fas fa-list me-2"></i>Your Bookings
+                        <i class="fas fa-list me-2"></i><?php echo $text['yourbk']; ?>
                         <span class="badge bg-primary ms-2"><?php echo $total_bookings; ?></span>
                     </h4>
                     <a href="booking.php" class="btn btn-primary">
-                        <i class="fas fa-plus me-1"></i> New Booking
+                        <i class="fas fa-plus me-1"></i> <?php echo $text['newbk']; ?>
                     </a>
                 </div>
 
@@ -324,10 +324,10 @@ include "includes/lang_loader.php";
                     <div class="card">
                         <div class="card-body text-center py-5">
                             <i class="fas fa-calendar-times text-muted" style="font-size: 4rem;"></i>
-                            <h4 class="text-muted mt-3">No bookings found</h4>
-                            <p class="text-muted">You don't have any bookings matching the selected criteria.</p>
+                            <h4 class="text-muted mt-3"><?php echo $text['nobkfound']; ?></h4>
+                            <p class="text-muted"><?php echo $text['nobkfound1']; ?></p>
                             <a href="booking.php" class="btn btn-primary">
-                                <i class="fas fa-plus me-1"></i> Make Your First Booking
+                                <i class="fas fa-plus me-1"></i> <?php echo $text['makebk']; ?>
                             </a>
                         </div>
                     </div>
@@ -366,14 +366,14 @@ include "includes/lang_loader.php";
                                                 <div class="col-6">
                                                     <p class="mb-2">
                                                         <i class="fas fa-calendar text-primary me-2"></i>
-                                                        <strong>Date:</strong><br>
+                                                        <strong><?php echo $text['date1']; ?></strong><br>
                                                         <small><?php echo formatDateForDisplay($booking['booking_date']); ?></small>
                                                     </p>
                                                 </div>
                                                 <div class="col-6">
                                                     <p class="mb-2">
                                                         <i class="fas fa-clock text-primary me-2"></i>
-                                                        <strong>Time:</strong><br>
+                                                        <strong><?php echo $text['time1']; ?></strong><br>
                                                         <small>
                                                             <?php echo formatTimeForDisplay($booking['start_time']); ?> - 
                                                             <?php echo formatTimeForDisplay($booking['end_time']); ?>
@@ -384,13 +384,13 @@ include "includes/lang_loader.php";
                                             
                                             <p class="mb-3">
                                                 <i class="fas fa-edit text-primary me-2"></i>
-                                                <strong>Purpose:</strong><br>
+                                                <strong><?php echo $text['pur']; ?></strong><br>
                                                 <small class="text-muted"><?php echo htmlspecialchars($booking['purpose']); ?></small>
                                             </p>
 
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <small class="text-muted">
-                                                    Booking ID: #<?php echo $booking['booking_id']; ?>
+                                                    <?php echo $text['bkid']; ?><?php echo $booking['booking_id']; ?>
                                                 </small>
                                                 
                                                 <?php if ($booking['status'] === 'confirmed' && $can_cancel && !$is_past): ?>
@@ -404,12 +404,12 @@ include "includes/lang_loader.php";
                                                 <?php elseif ($booking['status'] === 'confirmed' && !$can_cancel && !$is_past): ?>
                                                     <small class="text-warning">
                                                         <i class="fas fa-exclamation-triangle me-1"></i>
-                                                        Cannot cancel (within 30 min)
+                                                        <?php echo $text['cancelx2']; ?>
                                                     </small>
                                                 <?php elseif ($is_past && $booking['status'] === 'confirmed'): ?>
                                                     <small class="text-success">
                                                         <i class="fas fa-check-circle me-1"></i>
-                                                        Completed
+                                                        <?php echo $text['com']; ?>
                                                     </small>
                                                 <?php endif; ?>
                                             </div>
@@ -419,7 +419,7 @@ include "includes/lang_loader.php";
                                     <?php if ($is_today && $booking['status'] === 'confirmed'): ?>
                                         <div class="card-footer bg-warning text-dark">
                                             <i class="fas fa-exclamation-circle me-2"></i>
-                                            <strong>Today's Booking!</strong> Don't forget your appointment.
+                                            <strong><?php echo $text['tobk']; ?></strong> <?php echo $text['dontfor']; ?>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -434,7 +434,7 @@ include "includes/lang_loader.php";
                                 <?php if ($current_page > 1): ?>
                                     <li class="page-item">
                                         <a class="page-link" href="?page=<?php echo $current_page - 1; ?>&status=<?php echo $status_filter; ?>&date=<?php echo $date_filter; ?>">
-                                            <i class="fas fa-chevron-left"></i> Previous
+                                            <i class="fas fa-chevron-left"></i> <?php echo $text['pervious']; ?>
                                         </a>
                                     </li>
                                 <?php endif; ?>
@@ -450,7 +450,7 @@ include "includes/lang_loader.php";
                                 <?php if ($current_page < $total_pages): ?>
                                     <li class="page-item">
                                         <a class="page-link" href="?page=<?php echo $current_page + 1; ?>&status=<?php echo $status_filter; ?>&date=<?php echo $date_filter; ?>">
-                                            Next <i class="fas fa-chevron-right"></i>
+                                            <?php echo $text['next']; ?> <i class="fas fa-chevron-right"></i>
                                         </a>
                                     </li>
                                 <?php endif; ?>
@@ -469,24 +469,24 @@ include "includes/lang_loader.php";
                 <div class="modal-header">
                     <h5 class="modal-title">
                         <i class="fas fa-exclamation-triangle text-warning me-2"></i>
-                        Cancel Booking
+                        <?php echo $text['cancelbk']; ?>
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to cancel this booking?</p>
+                    <p><?php echo $text['cancelbk1']; ?></p>
                     <div class="cancel-booking-details">
                         <!-- Details will be populated by JavaScript -->
                     </div>
                     <div class="alert alert-warning mt-3">
                         <i class="fas fa-info-circle me-2"></i>
-                        <strong>Note:</strong> This action cannot be undone. You will receive a cancellation confirmation email.
+                        <strong><?php echo $text['note']; ?></strong> <?php echo $text['action']; ?>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keep Booking</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $text['keepbk']; ?></button>
                     <button type="button" class="btn btn-danger" id="confirmCancel">
-                        <i class="fas fa-times me-1"></i> Yes, Cancel Booking
+                        <i class="fas fa-times me-1"></i> <?php echo $text['Yes, Cancel Booking']; ?>
                     </button>
                 </div>
             </div>
