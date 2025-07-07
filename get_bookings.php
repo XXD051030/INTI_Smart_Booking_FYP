@@ -1,6 +1,5 @@
 <?php
 require_once 'db.php';
-
 header('Content-Type: application/json');
 
 $stmt = $pdo->prepare("
@@ -10,10 +9,9 @@ $stmt = $pdo->prepare("
     WHERE b.status = 'confirmed'
 ");
 $stmt->execute();
-$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $events = [];
-foreach ($rows as $row) {
+foreach ($stmt->fetchAll() as $row) {
     $events[] = [
         'id'    => $row['id'],
         'title' => $row['facility_name'],

@@ -159,5 +159,12 @@ return [
     'keepbk' => 'Keep Booking',
     'yes_cancel_booking' => 'Yes, Cancel Booking',
     
+    //support page
+    'Support Page' => 'Support',
+    'Contact Information' => 'Contact Information',
+    'Website' => 'Website:',
+    'Phone' => 'Phone Number:',
+    'Address' => 'Address:',
+    'Click here to Email Support' => 'Click here to Email Support',
 
 ];

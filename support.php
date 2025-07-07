@@ -41,6 +41,51 @@ include "includes/lang_loader.php";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .profile-card {
+        background: #ecf0f5;
+        border-radius: 51px;
+        padding: 40px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        text-align: left;
+        font-family: 'Roboto', sans-serif;
+        }
+
+        .profile-card h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #d0d4d9;
+        padding-bottom: 0.5rem;
+        }
+
+        .profile-card p {
+        font-size: 1.05rem;
+        color: #444;
+        line-height: 1.6;
+        margin-bottom: 0.5rem;
+        }
+
+        .profile-card a {
+        color: #0069d9;
+        text-decoration: none;
+        font-weight: 500;
+        }
+
+        .profile-card a:hover {
+        text-decoration: underline;
+        }
+
+        .profile-card .btn {
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0.5rem 1.25rem;
+        border-radius: 10px;
+        color: white;
+        }
+        </style>
 </head>
 <body>
     <div class="container-fluid p-0">
@@ -113,15 +158,16 @@ include "includes/lang_loader.php";
 
             <!-- Main Content -->
             <div class="col-md-9 col-lg-10 p-4">
-                <h1 class="mb-4">Support Page</h1>
-
+                <h1 class="mb-4"><?php echo $text['Support Page']; ?></h1>
+                <div class="profile-card">
                 <div class="mb-5">
-                    <h3>Contact Information</h3>
-                    <p>Website: <a href>https://www.newinti.edu.my</a></p>
-                    <p>Email: iicp.adco@newinti.edu.my</p>
-                    <p>Phone: +04-631 0138</p>
-                    <p>Address: 1-Z Lebuh Bukit Jambul 11900 Penang, Malaysia</p>
-                    <a class="btn btn-success mt-3" href="mailto:iicp.adco@inti.edu.my?subject=Support%20Request&body=Please%20describe%20your%20issue%20here.">Click here to Email Support</a>
+                    <h3><?php echo $text['Contact Information']; ?></h3>
+                    <p><?php echo $text['Website']; ?><a href>https://www.newinti.edu.my</a></p>
+                    <p><?php echo $text['email']; ?> iicp.adco@newinti.edu.my</p>
+                    <p><?php echo $text['Phone']; ?> +04-631 0138</p>
+                    <p><?php echo $text['Address']; ?> 1-Z Lebuh Bukit Jambul 11900 Penang, Malaysia</p>
+                    <a class="btn btn-success mt-3" href="mailto:iicp.adco@inti.edu.my?subject=Support%20Request&body=Please%20describe%20your%20issue%20here."><?php echo $text['Click here to Email Support']; ?></a>
+                </div>
                 </div>
             </div>
         </div>    

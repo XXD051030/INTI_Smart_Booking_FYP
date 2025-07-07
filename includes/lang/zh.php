@@ -160,4 +160,11 @@ return [
     'keepbk' => '继续保留预订',
     'yes_cancel_booking' => '是的，取消预订',
 
+    //support page
+    'Support Page' => '支持页面',
+    'Contact Information' => '联系信息',
+    'Website' => '网站：',
+    'Phone' => '电话号码：',
+    'Address' => '地址：',
+    'Click here to Email Support' => '点击这里发送支持电邮',
 ];

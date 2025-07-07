@@ -69,9 +69,63 @@ include "includes/lang_loader.php";
             padding-top: 60px;
             }
         }
-        .fc .fc-col-header-cell {
-            color: rgb(246, 31, 31);
+        #calendar {
+            background-color: #ecf0f5;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
+
+        .fc-toolbar.fc-header-toolbar {
+        background-color: #c1bfbf;
+        padding: 0;
+        margin: 0;
+        border-radius: 12px 12px 0 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        }
+
+        .fc-toolbar-title {
+        color: #333;
+        font-weight: 700;
+        font-size: 1.5rem;
+        margin: 0;
+        line-height: 50px;
+        }
+
+        .fc-scrollgrid,
+        .fc-scrollgrid-section-header,
+        .fc-scrollgrid-section-body,
+        .fc-scrollgrid table {
+        margin: 0 !important;
+        border: none !important;
+        padding: 0 !important;
+        border-collapse: collapse !important;
+        }
+
+        .fc-scrollgrid-section-header + .fc-scrollgrid-section-body {
+        border-top: none !important;
+        }
+
+        .fc-col-header-cell {
+        background-color: #ecf0f5;
+        height: 60px;
+        padding: 0;
+        text-align: center;
+        vertical-align: middle;
+        }
+
+        .fc-col-header-cell-cushion {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1rem;
+        line-height: 60px;
+        margin: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -144,21 +198,21 @@ include "includes/lang_loader.php";
     </div>
 
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                left: '',
+                center: 'title',
+                right: ''
                 },
                 events: 'get_bookings.php'
             });
             calendar.render();
-        });
-    </script>
+            });
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

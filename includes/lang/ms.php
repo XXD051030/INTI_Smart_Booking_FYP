@@ -160,4 +160,12 @@ return [
     'keepbk' => 'Kekalkan Tempahan',
     'yes_cancel_booking' => 'Ya, Batalkan Tempahan',
 
+    //support page
+    'Support Page' => 'Halaman Sokongan',
+    'Contact Information' => 'Maklumat Perhubungan',
+    'Website' => 'Laman Web:',
+    'Phone' => 'Telefon Nombor:',
+    'Address' => 'Alamat:',
+    'Click here to Email Support' => 'Klik di sini untuk E-mel Sokongan',
+
 ];
