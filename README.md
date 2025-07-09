@@ -13,6 +13,9 @@ A comprehensive student registration, authentication, and facility booking syste
 - ✅ **1-2 Hour Consecutive Bookings** 🆕
 - ✅ **Real-time Availability Checking** 🆕
 - ✅ **Booking Management & Cancellation** 🆕
+- ✅ **Modern Interactive Calendar with Statistics** 🆕
+- ✅ **Beautiful Gradient UI Design** 🆕
+- ✅ **Real-time Event Interactions** 🆕
 - ✅ PHPMailer Email System
 - ✅ Responsive Design
 - ✅ Real-time Form Validation
@@ -46,7 +49,9 @@ A comprehensive student registration, authentication, and facility booking syste
 │   ├── process_booking.php      # Booking data processing & validation
 │   ├── check_availability.php   # Real-time availability API
 │   ├── my_bookings.php         # Booking management & history
-│   └── cancel_booking.php      # Booking cancellation handler
+│   ├── cancel_booking.php      # Booking cancellation handler
+│   ├── calendar.php            # Modern interactive calendar view 🆕
+│   └── get_bookings.php        # Calendar events API 🆕
 │
 ├── ⚙️ **Configuration Files**
 │   ├── db.php                   # Database connection config
@@ -1049,7 +1054,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**📝 Version**: 0.3.4
+**📝 Version**: 0.3.7
 **📅 Last Updated**: July 2025  
 **👨‍💻 Developer**: Zhi Yang  
 **🏢 Organization**: INTI International College 
@@ -1057,9 +1062,22 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-## 🎯 **Recent Updates Summary (V0.3.3)**
+## 🎯 **Recent Updates Summary (V0.3.7)**
 
-### Multiple Language Support & Red Theme
+### 🆕 **Modern Interactive Calendar System** (July 2025)
+✅ **Beautiful Gradient Design**: Stunning purple-blue gradient container with glassmorphism effects  
+✅ **Interactive Statistics**: Real-time animated counters showing total, monthly, weekly, and upcoming bookings  
+✅ **Enhanced FullCalendar**: Multiple view modes (Month, Week, List) with smooth navigation  
+✅ **Event Interactions**: Clickable events with detailed information popups and hover animations  
+✅ **Modern UI Elements**: 
+   - Gradient backgrounds with backdrop blur effects
+   - Animated loading states with spinners
+   - Smooth hover transitions and scaling effects
+   - Professional navigation buttons with glass morphism
+✅ **Real-time Data**: Live statistics calculation and animated number updates  
+✅ **Responsive Design**: Mobile-friendly with adaptive layouts
+
+### Multiple Language Support & Red Theme (V0.3.3)
 ✅ **Multi-Language System**: Complete internationalization with English, Bahasa Malaysia, and Chinese support  
 ✅ **Language Settings**: Dynamic language switching in user settings page  
 ✅ **Red Color Theme**: Professional red branding across entire system `rgb(246, 31, 31)`  
