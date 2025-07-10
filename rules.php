@@ -1,13 +1,35 @@
 <?php
+session_start();
+require_once 'db.php';
 
-include "includes/lang_loader.php";
-
-//rules
-// Check if admin is logged in
+// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
+    header('Location: login');
+    exit;
+}
+
+// Get user information from database
+try {
+    $stmt = $pdo->prepare("SELECT username, email FROM users WHERE user_id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch();
+    
+    if (!$user) {
+        // User not found in database, logout
+        session_destroy();
+        header('Location: login.php');
+        exit;
+    }
+    
+    $username = htmlspecialchars($user['username']);
+    $email = htmlspecialchars($user['email']);
+    $user_initial = strtoupper(substr($username, 0, 1));
+} catch (PDOException $e) {
+    // Database error, redirect to login
     header('Location: login.php');
     exit;
 }
+include "includes/lang_loader.php"; 
 ?>
 
 
@@ -21,70 +43,6 @@ if (!isset($_SESSION['user_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <style>
-         body {
-            background-color: #f8f9fa;
-            font-family: 'Roboto', sans-serif;
-        }
-        .main-content {
-            padding: 2rem;
-        }
-        .rules-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .rules-card h2 {
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-        .rules-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .rules-list li {
-            padding: 1rem 0;
-            border-bottom: 1px solid #eaeaea;
-            display: flex;
-            align-items: flex-start;
-        }
-        .rules-list li i {
-            color: #4285F4;
-            margin-right: 1rem;
-            font-size: 1.2rem;
-            margin-top: 0.2rem;
-        }
-        .rules-list ul {
-            margin-left: 2rem;
-            list-style-type: disc;
-            padding-left: 0;
-        }
-        .rules-list ul li {
-            border-bottom: none;
-            padding: 0.5rem 0;
-            display: list-item;
-        }
-        .rule-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px 12px 0 0;
-            margin: -1.5rem -1.5rem 1.5rem;
-        }
-        @media (max-width: 768px) {
-            .main-content {
-                margin-left: 0;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container-fluid p-0">
@@ -97,6 +55,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="position-relative me-3">
                     <i class="fas fa-bell fs-4"></i>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        1
                     </span>
                 </div>
                 <div class="d-flex align-items-center">
@@ -107,7 +66,7 @@ if (!isset($_SESSION['user_id'])) {
                     <a href="logout.php" class="btn btn-outline-danger btn-sm">
                         <i class="fas fa-sign-out-alt"></i> <?php echo $text['logout']; ?>
                     </a>
-                </div> 
+                </div>
             </div>
         </div>
     <div class="row g-0">
@@ -135,12 +94,6 @@ if (!isset($_SESSION['user_id'])) {
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-bell"></i> <?php echo $text['notification']; ?>
-                            <span class="notification-badge">1</span>
-                        </a>
-                    </div>
-                    <div class="nav-item">
                         <a class="nav-link" href="setting.php">
                             <i class="fas fa-cog"></i> <?php echo $text['settings']; ?>
                         </a>
@@ -153,51 +106,74 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
             </div>
     
-    
-        <!-- Main Content -->
-        <div class="col-md-9 col-lg-10 p-4 main-content">
-        <div class="rules-card">
-            <div class="rule-header">
-                <h4 class="mb-0"><i class="fas fa-book me-2"></i>Reservation System Rules & Regulations</h4>
-            </div>
-            <ul class="rules-list">
-                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub1']; ?></strong>
-                    <ul>
-                        <li><?php echo $text['text1']; ?></li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub2']; ?></strong>
-                    <ul>
-                        <li><?php echo $text['text2.1']; ?></li>
-                        <li><?php echo $text['text2.2']; ?></li>
-                        <li><?php echo $text['text2.3']; ?></li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub3']; ?></strong>
-                    <ul>
-                        <li><?php echo $text['text3']; ?></li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub4']; ?>y</strong>
-                    <ul>
-                        <li><?php echo $text['text4.1']; ?></li>
-                        <li><?php echo $text['text4.2']; ?></li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub5']; ?></strong>
-                    <ul>
-                        <li><?php echo $text['text5.1']; ?></li>
-                        <li><?php echo $text['text5.2']; ?></li>
-                        <li><?php echo $text['text5.3']; ?></li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-check-circle"></i><strong><?php echo $text['sub6']; ?></strong>
-                    <ul>
-                        <li><?php echo $text['text6']; ?></li>
-                    </ul>
-                </li>
-            </ul>
-          </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 p-4">
+                <div class="profile-section">
+                    <h3><i class="fas fa-file-alt me-2"></i>Reservation System Rules & Regulations</h3>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Please read and follow these rules for facility reservations.
+                                </div>
+                                
+                                <div class="rules-content">
+                                    <div class="rule-item mb-4">
+                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub1']; ?></h5>
+                                        <ul class="list-unstyled ms-4">
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text1']; ?></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="rule-item mb-4">
+                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub2']; ?></h5>
+                                        <ul class="list-unstyled ms-4">
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text2.1']; ?></li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text2.2']; ?></li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text2.3']; ?></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="rule-item mb-4">
+                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub3']; ?></h5>
+                                        <ul class="list-unstyled ms-4">
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text3']; ?></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="rule-item mb-4">
+                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub4']; ?></h5>
+                                        <ul class="list-unstyled ms-4">
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text4.1']; ?></li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text4.2']; ?></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="rule-item mb-4">
+                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub5']; ?></h5>
+                                        <ul class="list-unstyled ms-4">
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text5.1']; ?></li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text5.2']; ?></li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text5.3']; ?></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="rule-item mb-4">
+                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub6']; ?></h5>
+                                        <ul class="list-unstyled ms-4">
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text6']; ?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 

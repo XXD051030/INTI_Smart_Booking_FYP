@@ -102,12 +102,6 @@ include "includes/lang_loader.php";
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-bell"></i> <?php echo $text['notification']; ?>
-                            <span class="notification-badge">1</span>
-                        </a>
-                    </div>
-                    <div class="nav-item">
                         <a class="nav-link" href="setting.php">
                             <i class="fas fa-cog"></i> <?php echo $text['settings']; ?>
                         </a>

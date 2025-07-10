@@ -837,7 +837,60 @@ A: 1. Check Apache error logs
 
 ## 📋 **Version History & Updates**
 
-### 🆕 **V0.3.3 - Multiple Language Support** (January 2025)
+### 🆕 **V4.0.1 - Navigation & Design Synchronization** (July 2025)
+**UI Cleanup & Design Consistency**
+
+#### ✨ **Navigation Improvements**
+- **Sidebar Notification Removal**: Removed unused notification tab from navigation sidebar
+- **Cleaner Navigation**: Streamlined sidebar menu with only functional navigation items
+- **Consistent User Experience**: Unified navigation behavior across all pages
+
+#### 🎨 **Design Synchronization**
+- **Rules Page Redesign**: Complete overhaul of rules.php design and functionality
+  - Added proper PHP session handling and user authentication
+  - Removed custom inline CSS styles for consistency
+  - Implemented modern card-based layout with Bootstrap components
+  - Enhanced rules display with visual icons and color coding
+- **Settings Page Modernization**: Redesigned setting.php interface
+  - Replaced simple list design with modern card-based layout
+  - Added descriptive text for each setting option
+  - Implemented responsive 2x2 grid layout for better organization
+  - Unified button styles and visual elements
+
+#### 🛠️ **Technical Improvements**
+- **Code Standardization**: 
+  - Unified PHP session handling across all pages
+  - Removed redundant CSS definitions
+  - Standardized page structure and component usage
+- **Performance Optimization**:
+  - Eliminated duplicate styling code
+  - Improved loading times with streamlined CSS
+  - Better code maintainability with external stylesheets
+
+#### 📁 **Files Updated**
+```
+🎨 Navigation & Design Updates:
+├── rules.php                   # Complete redesign with proper session handling
+├── setting.php                 # Modern card-based settings interface  
+├── general.php                 # Notification tab removal
+├── booking.php                 # Notification tab removal
+├── calendar.php                # Notification tab removal
+├── language.php                # Notification tab removal
+├── my_bookings.php             # Notification tab removal
+├── profile.php                 # Notification tab removal
+├── support.php                 # Notification tab removal
+└── css/style.css               # Removed unused notification badge styles
+```
+
+#### 🔧 **User Experience Enhancements**
+- **Visual Consistency**: All pages now follow the same design language
+- **Improved Readability**: Better typography and spacing throughout
+- **Mobile Responsiveness**: Enhanced mobile experience across all updated pages
+- **Professional Appearance**: Unified color scheme and modern design elements
+
+---
+
+### 🆕 **V0.3.3 - Multiple Language Support** (July 2025)
 **Internationalization & Language Selection**
 
 #### ✨ **New Features**
@@ -916,7 +969,7 @@ A: 1. Check Apache error logs
 └── admin/dashboard.php         # Admin dashboard colors
 ```
 
-### **V0.3.1 - Enhanced Admin Dashboard** (January 2025)
+### **V0.3.1 - Enhanced Admin Dashboard** (June 2025)
 **Admin Experience & UI Improvements**
 
 #### ✨ **New Features**
@@ -1054,7 +1107,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**📝 Version**: 0.3.7
+**📝 Version**: 0.4.1
 **📅 Last Updated**: July 2025  
 **👨‍💻 Developer**: Zhi Yang  
 **🏢 Organization**: INTI International College 
