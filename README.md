@@ -763,11 +763,10 @@ php -r "
 - [x] **Admin dashboard for facility management** 🆕
 - [ ] Booking analytics and reporting system
 - [ ] Push notification system
-- [ ] Mobile app development
-- [ ] QR code check-in system
+- [x] Multi-language support (English/Bahasa Malaysia/Chinese)
+
 
 ### 🛡️ **Phase 4: Enterprise Features** (Future)
-- [ ] Multi-language support (English/Bahasa Malaysia/Chinese)
 - [ ] Single Sign-On (SSO) integration
 - [ ] LDAP/Active Directory integration
 - [ ] Advanced analytics dashboard
