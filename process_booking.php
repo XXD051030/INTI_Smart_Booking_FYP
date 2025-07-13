@@ -4,6 +4,9 @@ require_once 'db.php';
 require_once 'Mailer.php';
 require_once 'notification_functions.php';
 
+// Set timezone to Malaysia (UTC+8)
+date_default_timezone_set('Asia/Kuala_Lumpur');
+
 // Set JSON response header
 header('Content-Type: application/json');
 
@@ -105,6 +108,29 @@ try {
         exit;
     }
 
+    // If booking date is today, check if time slots are in the future
+    if ($booking_date === $today) {
+        $current_time = date('H:i');
+        $invalid_slots = [];
+        
+        foreach ($time_slots as $slot) {
+            if ($slot <= $current_time) {
+                $invalid_slots[] = $slot;
+            }
+        }
+        
+        if (!empty($invalid_slots)) {
+            $formatted_slots = array_map(function($slot) {
+                return date('g:i A', strtotime($slot));
+            }, $invalid_slots);
+            echo json_encode([
+                'success' => false, 
+                'message' => 'Cannot book for past time slots: ' . implode(', ', $formatted_slots)
+            ]);
+            exit;
+        }
+    }
+
     // Check if date is within advance booking limit
     $max_date = date('Y-m-d', strtotime($today . ' + ' . $facility['advance_booking_days'] . ' days'));
     if ($booking_date > $max_date) {
@@ -112,19 +138,47 @@ try {
         exit;
     }
 
-    // Check daily booking limit (max 2 bookings per day)
+    // Check daily booking limit (max 2 booking requests per day)
+    // Improved logic: Count booking requests by grouping bookings created at the same time
     $stmt = $pdo->prepare("
-        SELECT COUNT(*) as count 
+        SELECT start_time, end_time, created_at 
         FROM bookings 
         WHERE user_id = ? 
         AND booking_date = ? 
         AND status = 'confirmed'
+        ORDER BY created_at, start_time
     ");
     $stmt->execute([$user_id, $booking_date]);
-    $daily_count = $stmt->fetch()['count'];
+    $existing_bookings = $stmt->fetchAll();
     
-    if ($daily_count >= 2) {
-        echo json_encode(['success' => false, 'message' => 'You have reached your daily booking limit of 2 slots']);
+    // Group bookings by created_at timestamp (same transaction = same request)
+    $booking_requests = 0;
+    $processed_timestamps = [];
+    
+    foreach ($existing_bookings as $booking) {
+        $timestamp = $booking['created_at'];
+        
+        // Skip if this timestamp was already processed
+        if (in_array($timestamp, $processed_timestamps)) {
+            continue;
+        }
+        
+        // Mark this timestamp as processed
+        $processed_timestamps[] = $timestamp;
+        
+        // Each unique timestamp represents one booking request
+        $booking_requests++;
+    }
+    
+    // Check if adding new booking would exceed limit
+    $new_booking_request = 1; // Current booking counts as one request
+    $total_requests = $booking_requests + $new_booking_request;
+    
+    if ($total_requests > 2) {
+        echo json_encode([
+            'success' => false, 
+            'message' => "You have reached your daily booking limit of 2 requests. Current: {$booking_requests} requests, attempting to add: {$new_booking_request} request."
+        ]);
         exit;
     }
 

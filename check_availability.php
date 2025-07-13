@@ -2,6 +2,9 @@
 session_start();
 require_once 'db.php';
 
+// Set timezone to Malaysia (UTC+8)
+date_default_timezone_set('Asia/Kuala_Lumpur');
+
 // Set JSON response header
 header('Content-Type: application/json');
 
@@ -100,7 +103,15 @@ try {
         
         // Check availability for each time slot
         $available_slots = [];
+        $today = date('Y-m-d');
+        $current_time = date('H:i');
+        
         foreach ($time_slots as $time) {
+            // Skip past time slots for today
+            if ($date === $today && $time <= $current_time) {
+                continue; // Don't include past time slots
+            }
+            
             $available_slots[] = [
                 'time' => $time,
                 'available' => !in_array($time, $booked_slots)
