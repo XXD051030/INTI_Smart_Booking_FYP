@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'db.php';
+require_once 'notification_functions.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -24,6 +25,9 @@ try {
     $username = htmlspecialchars($user['username']);
     $email = htmlspecialchars($user['email']);
     $user_initial = strtoupper(substr($username, 0, 1));
+    
+    // Get notification count
+    $unread_count = getUnreadNotificationCount($_SESSION['user_id']);
 } catch (PDOException $e) {
     // Database error, redirect to login
     header('Location: login.php');
@@ -350,9 +354,9 @@ include "includes/lang_loader.php";
             </div>
             <div class="d-flex align-items-center">
                 <div class="position-relative me-3">
-                    <i class="fas fa-bell fs-4"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        1
+                    <i class="fas fa-bell fs-4 notification-icon" id="notification-icon"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notification-count">
+                        <?php echo $unread_count; ?>
                     </span>
                 </div>
                 <div class="d-flex align-items-center">
@@ -369,7 +373,7 @@ include "includes/lang_loader.php";
 
         <div class="row g-0">
             <!-- Sidebar -->
-           <div class="col-md-3 col-lg-2 sidebar">
+            <div class="col-md-3 col-lg-2 sidebar">
                 <div class="nav flex-column">
                     <div class="nav-item">
                         <a class="nav-link" href="general.php">
@@ -409,17 +413,17 @@ include "includes/lang_loader.php";
                 <!-- Page Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h3 class="mb-0">
-                        <i class="far fa-calendar me-2" style="color: #667eea;"></i>
-                        <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Calendar Overview</span>
+                        <i class="far fa-calendar me-2" style="color: #f61f1f;"></i>
+                        <span style="color: #f61f1f; font-weight: 600;">Calendar Overview</span>
                     </h3>
                     <div class="d-flex gap-2">
-                        <button class="btn btn-outline-primary btn-sm" onclick="goToToday()">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="goToToday()">
                             <i class="fas fa-calendar-day me-1"></i> Today
                         </button>
                         <button class="btn btn-outline-secondary btn-sm" onclick="refreshCalendar()" title="Refresh Calendar">
                             <i class="fas fa-sync-alt me-1"></i> Refresh
                         </button>
-                        <button class="btn btn-outline-info btn-sm" onclick="debugStats()" title="Debug Statistics">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="debugStats()" title="Debug Statistics">
                             <i class="fas fa-bug me-1"></i> Debug
                         </button>
                         <a href="booking.php" class="btn btn-primary btn-sm">
@@ -890,5 +894,6 @@ include "includes/lang_loader.php";
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/notifications.js"></script>
 </body>
 </html>

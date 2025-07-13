@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'db.php';
+require_once 'notification_functions.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -23,6 +24,9 @@ try {
     $username = htmlspecialchars($user['username']);
     $email = htmlspecialchars($user['email']);
     $user_initial = strtoupper(substr($username, 0, 1));
+    
+    // Get notification count
+    $unread_count = getUnreadNotificationCount($_SESSION['user_id']);
 } catch (PDOException $e) {
     header('Location: login.php');
     exit;
@@ -137,9 +141,9 @@ include "includes/lang_loader.php";
             </div>
             <div class="d-flex align-items-center">
                 <div class="position-relative me-3">
-                    <i class="fas fa-bell fs-4"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        1
+                    <i class="fas fa-bell fs-4 notification-icon" id="notification-icon"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notification-count">
+                        <?php echo $unread_count; ?>
                     </span>
                 </div>
                 <div class="d-flex align-items-center">
@@ -489,5 +493,6 @@ include "includes/lang_loader.php";
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/my_bookings.js"></script>
+    <script src="js/notifications.js"></script>
 </body>
 </html> 

@@ -4,6 +4,7 @@
   include("db.php");
   require_once("Mailer.php");
   require_once("function.php");
+  require_once("notification_functions.php");
 
   // Set timezone to Malaysia (Kuala Lumpur)
   date_default_timezone_set('Asia/Kuala_Lumpur');
@@ -105,6 +106,13 @@
           // Delete used OTP
           $delete_otp = $pdo->prepare("DELETE FROM user_otp WHERE user_id = ?");
           $delete_otp->execute([$user_id]);
+
+          // Create welcome notification for new user
+          try {
+              createWelcomeNotification($user_id);
+          } catch (Exception $e) {
+              error_log("Error creating welcome notification: " . $e->getMessage());
+          }
 
           unset($_SESSION['email_reg']);
           $_SESSION['message'] = "Your account has been successfully created and registered.";

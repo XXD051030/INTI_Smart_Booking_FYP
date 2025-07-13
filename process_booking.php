@@ -2,6 +2,7 @@
 session_start();
 require_once 'db.php';
 require_once 'Mailer.php';
+require_once 'notification_functions.php';
 
 // Set JSON response header
 header('Content-Type: application/json');
@@ -273,6 +274,23 @@ try {
         
     } catch (Exception $e) {
         error_log("Email error in process_booking.php: " . $e->getMessage());
+    }
+
+    // Create notification for booking confirmation
+    try {
+        $overall_start_time = $time_slots[0];
+        $overall_end_time = date('H:i:s', strtotime($time_slots[count($time_slots)-1] . ' +1 hour'));
+        
+        createBookingConfirmationNotification(
+            $user_id,
+            $primary_booking_id,
+            $facility['name'],
+            $booking_date,
+            $overall_start_time,
+            $overall_end_time
+        );
+    } catch (Exception $e) {
+        error_log("Error creating booking confirmation notification: " . $e->getMessage());
     }
 
     // Return success response

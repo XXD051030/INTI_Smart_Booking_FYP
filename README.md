@@ -16,6 +16,9 @@ A comprehensive student registration, authentication, and facility booking syste
 - ✅ **Modern Interactive Calendar with Statistics** 🆕
 - ✅ **Beautiful Gradient UI Design** 🆕
 - ✅ **Real-time Event Interactions** 🆕
+- ✅ **Complete Notification System** 🆕
+- ✅ **Real-time Notification Updates** 🆕
+- ✅ **Interactive Notification Management** 🆕
 - ✅ PHPMailer Email System
 - ✅ Responsive Design
 - ✅ Real-time Form Validation
@@ -53,6 +56,11 @@ A comprehensive student registration, authentication, and facility booking syste
 │   ├── calendar.php            # Modern interactive calendar view 🆕
 │   └── get_bookings.php        # Calendar events API 🆕
 │
+├── 🔔 **Notification System** 🆕
+│   ├── get_notifications.php    # Notification retrieval API
+│   ├── mark_notification_read.php # Mark notifications as read API
+│   └── notification_functions.php # Core notification processing functions
+│
 ├── ⚙️ **Configuration Files**
 │   ├── db.php                   # Database connection config
 │   ├── mail_config.php          # Email server configuration
@@ -70,6 +78,7 @@ A comprehensive student registration, authentication, and facility booking syste
 │   ├── create_otp_table.sql     # OTP table structure
 │   ├── create_facilities_table.sql # Facilities table structure 🆕
 │   ├── create_bookings_table.sql   # Bookings table structure 🆕
+│   ├── create_notifications_table.sql # Notifications table structure 🆕
 │   └── check.php               # System health check
 │
 ├── 🎨 **Frontend Assets**
@@ -176,6 +185,27 @@ CREATE TABLE bookings (
     INDEX idx_facility_date (facility_id, booking_date),
     INDEX idx_status (status),
     UNIQUE KEY unique_booking (facility_id, booking_date, start_time)
+);
+```
+
+#### 🔔 **notifications Table** 🆕
+```sql
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    type ENUM('booking_confirmed', 'booking_cancelled', 'booking_reminder', 'system_notice') NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    related_booking_id INT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    read_at TIMESTAMP NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (related_booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
+    INDEX idx_user_id (user_id),
+    INDEX idx_is_read (is_read),
+    INDEX idx_created_at (created_at),
+    INDEX idx_user_unread (user_id, is_read)
 );
 ```
 
@@ -836,7 +866,60 @@ A: 1. Check Apache error logs
 
 ## 📋 **Version History & Updates**
 
-### 🆕 **V4.0.1 - Navigation & Design Synchronization** (July 2025)
+### 🆕 **V0.4.2 - Real-time Notification Dropdown System** (July 2025)
+**Compact Dropdown Notification System with Real-time Updates**
+
+#### ✨ **New Notification Features**
+- **Real-time Notification System**: Complete notification management with live updates
+- **Interactive Notification Dropdown**: Click bell icon to view recent notifications
+- **Smart Notification Count**: Dynamic badge showing unread notification count with pulse animation
+- **Notification Categories**: 
+  - Booking confirmations with green check icons
+  - Booking cancellations with red cross icons
+  - Booking reminders with orange clock icons
+  - System announcements with blue info icons
+- **Auto-refresh Notifications**: Real-time updates every 30 seconds
+- **Mark as Read Functionality**: Individual and bulk notification reading
+- **Compact Dropdown Interface**: All notifications accessible through dropdown menu
+
+#### 🔧 **Technical Implementation**
+- **Database Integration**: New `notifications` table with user relationships
+- **API Endpoints**: RESTful notification management APIs
+- **AJAX Integration**: Seamless real-time notification updates
+- **Booking Integration**: Automatic notifications for all booking actions
+- **Welcome System**: New users receive welcome notifications upon registration
+- **Performance Optimized**: Efficient database queries with proper indexing
+
+#### 📱 **User Experience Enhancements**
+- **Visual Feedback**: Color-coded notifications with appropriate icons
+- **Responsive Design**: Mobile-friendly notification dropdown
+- **Time Formatting**: Human-readable relative time display ("2 minutes ago")
+- **Smooth Animations**: Hover effects and transition animations
+- **Auto-hide Count**: Notification badge disappears when no unread notifications
+
+#### 📁 **New Files Added**
+```
+🔔 Notification System Files:
+├── create_notifications_table.sql   # Notification database table
+├── notification_functions.php       # Core notification processing functions
+├── get_notifications.php           # Notification retrieval API
+├── mark_notification_read.php      # Mark notifications as read API
+└── js/notifications.js             # Frontend notification dropdown interactions
+```
+
+#### 🛠️ **Enhanced Files**
+```
+📝 Notification Integration:
+├── process_booking.php             # Added booking confirmation notifications
+├── cancel_booking.php              # Added cancellation notifications
+├── otp-verify.php                  # Added welcome notifications for new users
+├── general.php + 8 other pages     # Updated notification icons with dropdown functionality
+└── css/style.css                   # Added notification-specific styling
+```
+
+---
+
+### 🆕 **V0.4.1 - Navigation & Design Synchronization** (July 2025)
 **UI Cleanup & Design Consistency**
 
 #### ✨ **Navigation Improvements**

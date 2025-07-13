@@ -5,6 +5,7 @@
   include("db.php");
   require_once("function.php");
   require_once("password-validation.php");
+  require_once("notification_functions.php");
 
   // Set header to return JSON response
   header('Content-Type: application/json');

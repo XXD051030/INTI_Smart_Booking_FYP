@@ -2,6 +2,7 @@
 session_start();
 require_once 'db.php';
 require_once 'Mailer.php';
+require_once 'notification_functions.php';
 
 // Set JSON response header
 header('Content-Type: application/json');
@@ -155,6 +156,20 @@ try {
         
     } catch (Exception $e) {
         error_log("Email error in cancel_booking.php: " . $e->getMessage());
+    }
+
+    // Create notification for booking cancellation
+    try {
+        createBookingCancellationNotification(
+            $user_id,
+            $booking_id,
+            $booking['facility_name'],
+            $booking['booking_date'],
+            $booking['start_time'],
+            $booking['end_time']
+        );
+    } catch (Exception $e) {
+        error_log("Error creating booking cancellation notification: " . $e->getMessage());
     }
 
     // Return success response
