@@ -5,7 +5,19 @@ let selectedDate = null;
 let selectedTimeSlots = []; // Changed to array for multiple slots
 let availableSlots = {};
 let currentDailyBookingCount = 0;
-const MAX_CONSECUTIVE_SLOTS = 2; // Maximum 2 consecutive slots
+
+// Function to get max slots based on facility type
+function getMaxConsecutiveSlots() {
+    if (!selectedFacility) return 2; // Default fallback
+    
+    // Discussion rooms have 2-hour limit (2 slots)
+    if (selectedFacility.type === 'discussion_room') {
+        return 2;
+    }
+    
+    // Other facilities (basketball, sports field, tennis) can book more slots
+    return 9; // Max available time slots (8 AM to 5 PM)
+}
 
 // Time slots (8 AM to 5 PM, 9 slots total)
 const timeSlots = [
@@ -269,14 +281,18 @@ function selectTimeSlot(time) {
         clickedSlot.classList.remove('selected');
     } else {
         // Check if we can add more slots
-        if (selectedTimeSlots.length >= MAX_CONSECUTIVE_SLOTS) {
-            showAlert('You can only select maximum 2 consecutive time slots.', 'warning');
+        const maxSlots = getMaxConsecutiveSlots();
+        if (selectedTimeSlots.length >= maxSlots) {
+            const facilityName = selectedFacility.type === 'discussion_room' ? 'Discussion rooms' : 'This facility';
+            const limitText = selectedFacility.type === 'discussion_room' ? '2 consecutive time slots (2 hours maximum)' : `${maxSlots} time slots`;
+            showAlert(`${facilityName} can only book a maximum of ${limitText}.`, 'warning');
             return;
         }
         
         // Check if the new slot is consecutive with existing selections
         if (selectedTimeSlots.length > 0 && !isConsecutiveSlot(time)) {
-            showAlert('Please select consecutive time slots only.', 'warning');
+            const facilityType = selectedFacility.type === 'discussion_room' ? 'discussion rooms' : 'this facility';
+            showAlert(`Please select consecutive time slots only for ${facilityType}.`, 'warning');
             return;
         }
         
@@ -314,12 +330,13 @@ function updateBookingSummary() {
         const endTime = calculateEndTime(selectedTimeSlots[0]);
         document.getElementById('summary-time').textContent = `${selectedTimeSlots[0]} - ${endTime}`;
         document.getElementById('summary-duration').textContent = '1 hour';
-    } else if (selectedTimeSlots.length === 2) {
+    } else if (selectedTimeSlots.length >= 2) {
         // For consecutive slots, show start of first to end of last
         const startTime = selectedTimeSlots[0];
         const endTime = calculateEndTime(selectedTimeSlots[selectedTimeSlots.length - 1]);
         document.getElementById('summary-time').textContent = `${startTime} - ${endTime}`;
-        document.getElementById('summary-duration').textContent = '2 hours (consecutive slots)';
+        const duration = selectedTimeSlots.length === 2 ? '2 hours' : `${selectedTimeSlots.length} hours`;
+        document.getElementById('summary-duration').textContent = `${duration} (consecutive slots)`;
     }
 }
 
@@ -631,7 +648,8 @@ function updateSlotSelectionIndicators() {
         const time = slot.getAttribute('data-time');
         const isDisabled = slot.classList.contains('disabled');
         
-        if (!isDisabled && selectedTimeSlots.length > 0 && selectedTimeSlots.length < MAX_CONSECUTIVE_SLOTS) {
+        const maxSlots = getMaxConsecutiveSlots();
+        if (!isDisabled && selectedTimeSlots.length > 0 && selectedTimeSlots.length < maxSlots) {
             // Show which slots can be selected next
             if (!selectedTimeSlots.includes(time) && !isConsecutiveSlot(time)) {
                 slot.classList.add('non-consecutive');

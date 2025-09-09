@@ -54,7 +54,7 @@ return [
     'sub6' => '6. Admin Rights',
 
     'text1' => 'Only registered INTI students and staff are allowed to use the booking system.',
-    'text2.1' => 'Each booking session is limited to a maximum of 2 hours.',
+    'text2.1' => 'Discussion rooms are limited to a maximum of 2 hours per booking.',
     'text2.2' => 'Users are allowed to make up to 2 bookings per day.',
     'text2.3' => 'Bookings can be made up to 3 days in advance.',
     'text3' => 'Users must check in within 15 minutes after the booking start time. Failure to check in will result in automatic cancellation of the booking.',
@@ -94,7 +94,7 @@ return [
     'selecttime' => 'Select Time Slot(s)',
     'mulbk' => 'Multiple Slot Booking:',
     'timeslotselect' => 'You can select 1 or 2 consecutive time slots.',
-    'timeslotselect1' => 'Click on additional adjacent slots to extend your booking to 2 hours maximum.',
+    'timeslotselect1' => 'Click on additional adjacent slots to extend your booking. Discussion rooms: 2 hours maximum.',
     'ava' => 'Available',
     'booked' => 'Booked',
     'selected' => 'Selected',

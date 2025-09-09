@@ -127,50 +127,65 @@ include "includes/lang_loader.php";
                                 </div>
                                 
                                 <div class="rules-content">
+                                    <h3>DISCUSSION ROOM RULES AND REGULATIONS</h3>
                                     <div class="rule-item mb-4">
-                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub1']; ?></h5>
+                                        <h5><i class="fas fa-check-circle text-success me-2"></i>1. Booking & Usage</h5>
                                         <ul class="list-unstyled ms-4">
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text1']; ?></li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i>Discussion rooms: Each group may use the room for a maximum of two (2) hours only.</li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i>Sports facilities (Basketball Court, Sports Field, Tennis Court): No hourly limit applies.</li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i>All names and INTI Student IDs must be entered during reservation.</li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i>Room capacity limits are as follows: </li>
                                         </ul>
+                                        
+                                        <div class="mt-3 mb-3 d-flex justify-content-center">
+                                            <table class="table table-bordered" style="width: 50%; max-width: 1000px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Discussion Room</th>
+                                                        <th class="text-center">Min capacity</th>
+                                                        <th class="text-center">Max capacity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Discussion room 1-3</td>
+                                                        <td class="text-center">3 people</td>
+                                                        <td class="text-center">4 people</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Discussion room 4</td>
+                                                        <td class="text-center">3 people</td>
+                                                        <td class="text-center">6 people</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Discussion room 5</td>
+                                                        <td class="text-center">6 people</td>
+                                                        <td class="text-center">10 people</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        
+                                        <p class="text-center text-muted mt-2"><small><em>If your group exceeds the maximum limit, please inform the librarians at the counter.</em></small></p>
+                                        
+                                        <ul class="list-unstyled ms-4">
                                     </div>
                                     
                                     <div class="rule-item mb-4">
-                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub2']; ?></h5>
+                                        <h5><i class="fas fa-check-circle text-success me-2"></i>2.	Room Conduct</h5>
                                         <ul class="list-unstyled ms-4">
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text2.1']; ?></li>
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text2.2']; ?></li>
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text2.3']; ?></li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i>Sleeping is strictly prohibited.</li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i>No food or drinks are allowed.</li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i>Rooms must be kept clean at all times.</li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i>Any maintenance issues should be reported to the librarians immediately.</li>
                                         </ul>
                                     </div>
-                                    
+
                                     <div class="rule-item mb-4">
-                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub3']; ?></h5>
+                                        <h5><i class="fas fa-check-circle text-success me-2"></i>3.	Compliance</h5>
                                         <ul class="list-unstyled ms-4">
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text3']; ?></li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="rule-item mb-4">
-                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub4']; ?></h5>
-                                        <ul class="list-unstyled ms-4">
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text4.1']; ?></li>
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text4.2']; ?></li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="rule-item mb-4">
-                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub5']; ?></h5>
-                                        <ul class="list-unstyled ms-4">
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text5.1']; ?></li>
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text5.2']; ?></li>
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text5.3']; ?></li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="rule-item mb-4">
-                                        <h5><i class="fas fa-check-circle text-success me-2"></i><?php echo $text['sub6']; ?></h5>
-                                        <ul class="list-unstyled ms-4">
-                                            <li><i class="fas fa-arrow-right text-primary me-2"></i><?php echo $text['text6']; ?></li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i>Users who violate the rules may have their booking privileges suspended.</li>
+                                            <li><i class="fas fa-arrow-right text-primary me-2"></i>All discussion rooms are monitored by CCTV. Any misuse will result in immediate termination of room usage.</li>
                                         </ul>
                                     </div>
                                 </div>

@@ -115,6 +115,12 @@ A comprehensive student registration, authentication, and facility booking syste
 - **Host**: `localhost`
 - **Port**: `3306`
 
+### 🔑 Default Login Credentials
+| User Type | Email | Username | Password |
+|-----------|-------|----------|----------|
+| Admin User | admin@student.newinti.edu.my | admin | admin123 |
+| Test User | test@student.newinti.edu.my | testuser | test123 |
+
 ---
 
 ## 🚀 **Installation Guide**
@@ -129,10 +135,37 @@ A comprehensive student registration, authentication, and facility booking syste
 - SSL certificate (recommended for production)
 ```
 
-### 2. **Database Setup**
+### 2. **Quick Database Setup** 🆕 *(Recommended)*
+
+#### **Option A: Automated PHP Setup Script** ⚡
+```bash
+# Navigate to project directory
+cd ~/INTI_Smart_Booking_FYP
+
+# Run the automated setup script
+php setup_database.php
+```
+
+#### **Option B: Automated Shell Script** 🐚
+```bash
+# Navigate to project directory  
+cd /Applications/XAMPP/xamppfiles/htdocs/dashboard/INTI_Smart_Booking_FYP
+
+# Make script executable and run
+chmod +x setup_database.sh
+./setup_database.sh
+```
+
+#### **Option C: Web-Based Setup** 🌐
+```
+Navigate to: http://localhost/dashboard/INTI_Smart_Booking_FYP/database/setup_database.php
+Click "Run Database Setup" button
+```
+
+### 3. **Manual Database Setup** *(If automated setup fails)*
 ```bash
 # Connect to MySQL as root
-sudo mysql -u root -p
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -p
 
 # Create database
 CREATE DATABASE reservation_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -143,14 +176,15 @@ GRANT ALL PRIVILEGES ON reservation_system.* TO 'webapp'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
 
-# Import table structures
-mysql -u webapp -p reservation_system < create_users_table.sql
-mysql -u webapp -p reservation_system < create_otp_table.sql
-mysql -u webapp -p reservation_system < create_facilities_table.sql
-mysql -u webapp -p reservation_system < create_bookings_table.sql
+# Import table structures (in correct order)
+/Applications/XAMPP/xamppfiles/bin/mysql -u webapp -p reservation_system < create_users_table.sql
+/Applications/XAMPP/xamppfiles/bin/mysql -u webapp -p reservation_system < create_facilities_table.sql
+/Applications/XAMPP/xamppfiles/bin/mysql -u webapp -p reservation_system < create_bookings_table.sql
+/Applications/XAMPP/xamppfiles/bin/mysql -u webapp -p reservation_system < create_otp_table.sql
+/Applications/XAMPP/xamppfiles/bin/mysql -u webapp -p reservation_system < create_notifications_table.sql
 ```
 
-### 3. **Install Dependencies**
+### 4. **Install Dependencies**
 ```bash
 # Install Composer (if not already installed)
 curl -sS https://getcomposer.org/installer | php
@@ -163,7 +197,7 @@ cd /var/www/html
 composer install --no-dev --optimize-autoloader
 ```
 
-### 4. **Email Configuration**
+### 5. **Email Configuration**
 Edit `mail_config.php` to configure SMTP settings:
 ```php
 <?php
@@ -178,7 +212,7 @@ define('FROM_NAME', 'INTI Reservation System');
 ?>
 ```
 
-### 5. **File Permissions**
+### 6. **File Permissions**
 ```bash
 # Set proper ownership
 sudo chown -R www-data:www-data /var/www/html
@@ -192,7 +226,7 @@ sudo mkdir -p /var/www/html/var/log
 sudo chmod 777 /var/www/html/var/log
 ```
 
-### 6. **Web Server Configuration**
+### 7. **Web Server Configuration**
 
 #### Apache Configuration
 ```apache
@@ -387,10 +421,11 @@ A: Check SMTP credentials in mail_config.php
 
 **Q: "Database connection failed" error**
 ```
-A: 1. Verify MySQL service is running
-   2. Check database credentials in db.php
-   3. Ensure database user has proper permissions
-   4. Test connection with: php -r "include 'db.php';"
+A: 1. Run the automated setup script: php setup_database.php
+   2. Verify MySQL service is running
+   3. Check database credentials in db.php
+   4. Ensure database user has proper permissions
+   5. Test connection with: php -r "include 'db.php';"
 ```
 
 **Q: OTP emails not received**
@@ -450,8 +485,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**📝 Version**: 0.4.2
-**📅 Last Updated**: July 2025  
+**📝 Version**: 0.4.3
+**📅 Last Updated**: January 2025  
 **👨‍💻 Developer**: Zhi Yang  
 **🏢 Organization**: INTI International College 
 **📧 Support**: xxd051030@gmail.com

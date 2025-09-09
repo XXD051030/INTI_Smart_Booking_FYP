@@ -49,12 +49,18 @@ include "includes/lang_loader.php";
     <style>
         /* Modern Calendar Container */
         .calendar-container {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%, #f093fb 100%);
             border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 10px 25px rgba(102, 126, 234, 0.2);
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2), 0 15px 30px rgba(102, 126, 234, 0.3);
         }
 
         .calendar-container::before {
@@ -302,11 +308,44 @@ include "includes/lang_loader.php";
             letter-spacing: 0.5px;
         }
 
-        /* Responsive Design */
+        /* Enhanced Error Handling */
+        .error-container {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 15px 35px rgba(255, 154, 158, 0.3);
+        }
+        
+        .error-icon {
+            font-size: 3rem;
+            color: #e53e3e;
+            margin-bottom: 15px;
+        }
+        
+        .retry-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Enhanced Responsive Design */
         @media (max-width: 768px) {
             .calendar-container {
                 padding: 15px;
                 margin: 10px;
+                border-radius: 16px;
             }
             
             .fc-toolbar-title {
@@ -317,31 +356,167 @@ include "includes/lang_loader.php";
                 padding: 6px 10px !important;
                 font-size: 0.8rem !important;
             }
+            
+            .calendar-stats {
+                margin-bottom: 15px;
+                padding: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .calendar-container {
+                padding: 10px;
+                margin: 5px;
+            }
+            
+            .fc-toolbar.fc-header-toolbar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+            
+            .fc-button-group {
+                order: 1;
+            }
+            
+            .fc-toolbar-title {
+                order: 2;
+                font-size: 1.2rem;
+            }
+            
+            .stat-item {
+                padding: 10px;
+            }
         }
 
-        /* Loading Animation */
+        /* Enhanced Loading Animation */
         .calendar-loading {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 200px;
+            height: 300px;
             font-size: 1.2rem;
             color: #667eea;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
         }
 
         .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(102, 126, 234, 0.2);
             border-top: 4px solid #667eea;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-right: 15px;
+            margin-bottom: 20px;
         }
+        
+        .loading-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: bounce 1.4s ease-in-out infinite both;
+        }
+        
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+        .loading-dot:nth-child(3) { animation-delay: 0s; }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            } 40% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+        
+        .custom-toast {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            min-width: 300px;
+            animation: slideInRight 0.3s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Accessibility improvements */
+        .fc-button:focus,
+        .btn:focus {
+            outline: 2px solid #667eea;
+            outline-offset: 2px;
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .calendar-container {
+                border: 2px solid #000;
+            }
+            
+            .fc-event {
+                border: 1px solid #000 !important;
+            }
+        }
+        
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
@@ -466,9 +641,24 @@ include "includes/lang_loader.php";
                 <div class="calendar-container">
                     <div id="calendar-loading" class="calendar-loading">
                         <div class="loading-spinner"></div>
-                        Loading calendar...
+                        <div>Loading calendar...</div>
+                        <div class="loading-dots">
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                        </div>
                     </div>
                     <div id='calendar' style="display: none;"></div>
+                    <div id="calendar-error" class="error-container" style="display: none;">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h4>Calendar Loading Error</h4>
+                        <p>We're having trouble loading your calendar. Please check your connection and try again.</p>
+                        <button class="retry-btn" onclick="retryCalendarLoad()">
+                            <i class="fas fa-sync-alt me-2"></i>Retry
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -562,17 +752,8 @@ include "includes/lang_loader.php";
                             // Reset stats on error
                             updateStats([]);
                             
-                            // Hide loading even on error
-                            loadingEl.style.display = 'none';
-                            calendarEl.style.display = 'block';
-                            
-                            // Still try to render calendar
-                            setTimeout(() => {
-                                if (calendar) {
-                                    calendar.updateSize();
-                                    calendar.render();
-                                }
-                            }, 100);
+                            // Show error container instead
+                            showCalendarError();
                         });
                 },
                 eventClick: function(info) {
@@ -731,23 +912,60 @@ include "includes/lang_loader.php";
                 hour: '2-digit',
                 minute: '2-digit'
             });
+            
+            // Determine event status
+            const now = new Date();
+            const eventStart = new Date(event.start);
+            const eventEnd = new Date(event.end);
+            let statusClass = 'info';
+            let statusIcon = 'calendar-alt';
+            let statusText = 'Scheduled';
+            
+            if (now < eventStart) {
+                statusClass = 'primary';
+                statusIcon = 'clock';
+                statusText = 'Upcoming';
+            } else if (now >= eventStart && now <= eventEnd) {
+                statusClass = 'success';
+                statusIcon = 'play-circle';
+                statusText = 'Active Now';
+            } else {
+                statusClass = 'secondary';
+                statusIcon = 'check-circle';
+                statusText = 'Completed';
+            }
 
             const alertHtml = `
-                <div class="alert alert-info alert-dismissible fade show" role="alert" style="
+                <div class="alert alert-${statusClass} alert-dismissible fade show event-details-alert" role="alert" style="
                     background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
                     border: 1px solid rgba(102, 126, 234, 0.3);
-                    border-radius: 12px;
+                    border-radius: 15px;
                     backdrop-filter: blur(10px);
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                    transform: translateY(-10px);
+                    animation: slideInDown 0.3s ease;
                 ">
                     <div class="d-flex align-items-start">
                         <div class="me-3">
-                            <i class="fas fa-calendar-alt" style="color: #667eea; font-size: 1.5rem;"></i>
+                            <i class="fas fa-${statusIcon}" style="color: #667eea; font-size: 1.8rem;"></i>
                         </div>
                         <div class="flex-grow-1">
-                            <h5 class="alert-heading mb-2" style="color: #4a5568;">${event.title}</h5>
-                            <p class="mb-1"><strong>Date:</strong> ${startTime}</p>
-                            <p class="mb-1"><strong>End Time:</strong> ${endTime}</p>
-                            <p class="mb-0"><strong>Booking ID:</strong> #${event.id}</p>
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="alert-heading mb-0" style="color: #4a5568;">${event.title}</h5>
+                                <span class="badge bg-${statusClass} rounded-pill">${statusText}</span>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <p class="mb-2"><i class="fas fa-calendar me-2"></i><strong>Date:</strong> ${startTime}</p>
+                                    <p class="mb-2"><i class="fas fa-clock me-2"></i><strong>End Time:</strong> ${endTime}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-2"><i class="fas fa-hashtag me-2"></i><strong>Booking ID:</strong> #${event.id}</p>
+                                    <a href="my_bookings.php" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-external-link-alt me-1"></i>View Details
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -756,25 +974,76 @@ include "includes/lang_loader.php";
 
             // Insert alert at the top of main content
             const mainContent = document.querySelector('.col-md-9.col-lg-10.p-4');
-            const existingAlert = mainContent.querySelector('.alert');
+            const existingAlert = mainContent.querySelector('.event-details-alert');
             if (existingAlert) {
                 existingAlert.remove();
             }
             mainContent.insertAdjacentHTML('afterbegin', alertHtml);
             
-            // Auto-remove after 5 seconds
+            // Auto-remove after 8 seconds
             setTimeout(() => {
-                const alert = mainContent.querySelector('.alert');
-                if (alert) {
-                    alert.remove();
+                const alert = mainContent.querySelector('.event-details-alert');
+                if (alert && alert.style.opacity !== '0') {
+                    alert.style.transition = 'all 0.3s ease';
+                    alert.style.opacity = '0';
+                    alert.style.transform = 'translateY(-20px)';
+                    setTimeout(() => alert.remove(), 300);
                 }
-            }, 5000);
+            }, 8000);
+        }
+
+        // Enhanced error handling
+        function showCalendarError() {
+            const loadingEl = document.getElementById('calendar-loading');
+            const calendarEl = document.getElementById('calendar');
+            const errorEl = document.getElementById('calendar-error');
+            
+            loadingEl.style.display = 'none';
+            calendarEl.style.display = 'none';
+            errorEl.style.display = 'block';
+            
+            // Add entrance animation
+            errorEl.style.opacity = '0';
+            errorEl.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                errorEl.style.transition = 'all 0.5s ease';
+                errorEl.style.opacity = '1';
+                errorEl.style.transform = 'translateY(0)';
+            }, 50);
+        }
+        
+        function hideCalendarError() {
+            const errorEl = document.getElementById('calendar-error');
+            errorEl.style.display = 'none';
+        }
+        
+        function retryCalendarLoad() {
+            const loadingEl = document.getElementById('calendar-loading');
+            const calendarEl = document.getElementById('calendar');
+            
+            hideCalendarError();
+            loadingEl.style.display = 'flex';
+            calendarEl.style.display = 'none';
+            
+            // Reinitialize calendar
+            setTimeout(() => {
+                if (calendar) {
+                    calendar.destroy();
+                }
+                initializeCalendar(calendarEl, loadingEl);
+            }, 500);
         }
 
         // Add some global functions for the header buttons
         function goToToday() {
             if (calendar) {
                 calendar.today();
+                // Add visual feedback
+                const todayBtn = event.target;
+                todayBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    todayBtn.style.transform = '';
+                }, 150);
             }
         }
 
@@ -783,6 +1052,16 @@ include "includes/lang_loader.php";
                 console.log('Manual calendar refresh triggered');
                 const loadingEl = document.getElementById('calendar-loading');
                 const calendarEl = document.getElementById('calendar');
+                const refreshBtn = document.querySelector('[onclick="refreshCalendar()"]');
+                
+                // Add visual feedback to refresh button
+                if (refreshBtn) {
+                    refreshBtn.disabled = true;
+                    refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Refreshing...';
+                }
+                
+                // Hide error if showing
+                hideCalendarError();
                 
                 // Show loading briefly
                 loadingEl.style.display = 'flex';
@@ -798,6 +1077,12 @@ include "includes/lang_loader.php";
                     loadingEl.style.display = 'none';
                     calendarEl.style.display = 'block';
                     
+                    // Reset refresh button
+                    if (refreshBtn) {
+                        refreshBtn.disabled = false;
+                        refreshBtn.innerHTML = '<i class="fas fa-sync-alt me-1"></i> Refresh';
+                    }
+                    
                     // Also manually update stats after a short delay
                     setTimeout(() => {
                         if (allEvents && allEvents.length > 0) {
@@ -807,7 +1092,10 @@ include "includes/lang_loader.php";
                     }, 500);
                     
                     console.log('Calendar manually refreshed');
-                }, 300);
+                    
+                    // Show success feedback
+                    showToast('Calendar refreshed successfully!', 'success');
+                }, 800);
             }
         }
 
@@ -890,6 +1178,80 @@ include "includes/lang_loader.php";
                     console.log('Calendar resize on visibility change');
                     calendar.updateSize();
                 }, 100);
+            }
+        });
+        
+        // Toast notification system
+        function showToast(message, type = 'info', duration = 3000) {
+            const toastContainer = getOrCreateToastContainer();
+            const toastId = 'toast-' + Date.now();
+            
+            const iconMap = {
+                'success': 'check-circle',
+                'error': 'exclamation-circle',
+                'warning': 'exclamation-triangle',
+                'info': 'info-circle'
+            };
+            
+            const toastHtml = `
+                <div id="${toastId}" class="toast custom-toast" role="alert">
+                    <div class="toast-header border-0">
+                        <i class="fas fa-${iconMap[type]} text-${type} me-2"></i>
+                        <strong class="me-auto">Calendar</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                    </div>
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            
+            toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+            
+            const toastElement = document.getElementById(toastId);
+            const toast = new bootstrap.Toast(toastElement, {
+                autohide: true,
+                delay: duration
+            });
+            
+            toast.show();
+            
+            // Clean up after hiding
+            toastElement.addEventListener('hidden.bs.toast', () => {
+                toastElement.remove();
+            });
+        }
+        
+        function getOrCreateToastContainer() {
+            let container = document.querySelector('.toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.className = 'toast-container';
+                document.body.appendChild(container);
+            }
+            return container;
+        }
+        
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + R to refresh calendar
+            if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+                e.preventDefault();
+                refreshCalendar();
+            }
+            
+            // T key to go to today
+            if (e.key === 't' || e.key === 'T') {
+                if (!e.target.matches('input, textarea, [contenteditable]')) {
+                    e.preventDefault();
+                    goToToday();
+                }
+            }
+            
+            // Escape to close any open alerts
+            if (e.key === 'Escape') {
+                const alerts = document.querySelectorAll('.alert .btn-close');
+                alerts.forEach(btn => btn.click());
             }
         });
     </script>
