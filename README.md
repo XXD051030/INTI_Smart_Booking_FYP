@@ -1,3 +1,20 @@
+> # ⚠️ This repository is no longer being updated
+>
+> Active development has moved to a new layered rewrite:
+>
+> ### 👉 [INTI_Smart_Booking_FYP_refactor](https://github.com/XXD051030/INTI_Smart_Booking_FYP_refactor)
+>
+> The refactor preserves this project's UI and feature set while replacing the
+> flat procedural script layout with a clean Repositories / Services / Views
+> architecture (PHP 8 + SQLite, auto-initialized).
+>
+> Please open new issues and pull requests against the refactor repository.
+> This repository is kept online for historical reference only.
+>
+> — *Last updated here: April 2026*
+
+---
+
 # 🎓 INTI Student Registration & Facility Booking System
 
 A comprehensive student registration, authentication, and facility booking system with email verification functionality, specifically designed for INTI University students.
@@ -319,6 +336,10 @@ Result: 09:00 - 11:00 (2 consecutive hours)
 
 ## 📈 **Future Development Roadmap**
 
+> **Note:** Future development has moved to the
+> [refactor repository](https://github.com/XXD051030/INTI_Smart_Booking_FYP_refactor).
+> The roadmap below is preserved as the original V1 plan.
+
 ### 🚀 **Phase 1: Core Features** (✅ Completed)
 - [x] User registration and authentication
 - [x] Email verification system
@@ -413,6 +434,11 @@ A: 1. Check Apache error logs
 
 ## 🤝 **Contributing**
 
+> **Contributions are no longer accepted on this repository.**
+> Please open issues and pull requests on the
+> [refactor repository](https://github.com/XXD051030/INTI_Smart_Booking_FYP_refactor)
+> instead.
+
 ### Development Setup
 ```bash
 # Clone the repository
@@ -450,8 +476,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**📝 Version**: 0.4.2
-**📅 Last Updated**: July 2025  
+**📝 Version**: 0.4.2 (final — superseded by [refactor](https://github.com/XXD051030/INTI_Smart_Booking_FYP_refactor))
+**📅 Last Updated**: April 2026
 **👨‍💻 Developer**: Zhi Yang  
 **🏢 Organization**: INTI International College 
 **📧 Support**: xxd051030@gmail.com
